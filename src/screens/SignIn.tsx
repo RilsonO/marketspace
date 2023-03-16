@@ -17,6 +17,8 @@ import LogoSvg from '@assets/logo_with_name.svg';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 import { Eye, EyeSlash } from 'phosphor-react-native';
+import { useNavigation } from '@react-navigation/native';
+import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
 
 const signInSchema = yup.object({
   email: yup.string().required('Informe o email.').email('E-mail inválido.'),
@@ -26,6 +28,7 @@ const signInSchema = yup.object({
 type FormDataProps = yup.InferType<typeof signInSchema>;
 
 export function SignIn() {
+  const navigation = useNavigation<AuthNavigatorRoutesProps>();
   const { colors, sizes } = useTheme();
   const {
     control,
@@ -39,6 +42,10 @@ export function SignIn() {
 
   function handleSignIn({ password, email }: FormDataProps) {
     console.log(email, password);
+  }
+
+  function handleNewAccount() {
+    navigation.navigate('signUp');
   }
 
   return (
@@ -135,7 +142,7 @@ export function SignIn() {
             <Button
               title='Criar uma conta'
               bgColor='gray.300'
-              // onPress={handleNewAccount}
+              onPress={handleNewAccount}
             />
           </Center>
         </VStack>

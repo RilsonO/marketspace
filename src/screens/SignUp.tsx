@@ -8,11 +8,11 @@ import {
   KeyboardAvoidingView,
   Box,
   Skeleton,
-  Pressable,
   useTheme,
   Button as NativeButton,
   useToast,
 } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -52,6 +52,7 @@ type FormDataProps = yup.InferType<typeof signInSchema>;
 const PHOTO_SIZE = 22;
 
 export function SignUp() {
+  const navigation = useNavigation();
   const { colors, sizes } = useTheme();
   const toast = useToast();
   const {
@@ -68,7 +69,11 @@ export function SignUp() {
   const [passwordConfirmSecureTextEntry, setPasswordConfirmSecureTextEntry] =
     useState(true);
 
-  function handleSignIn({ password, email }: FormDataProps) {
+  function handleGoBack() {
+    navigation.goBack();
+  }
+
+  function handleSignUp({ password, email }: FormDataProps) {
     console.log(email, password);
   }
 
@@ -304,7 +309,7 @@ export function SignUp() {
               mt={3}
               title='Criar'
               bgColor='gray.700'
-              onPress={handleSubmit(handleSignIn)}
+              onPress={handleSubmit(handleSignUp)}
               // isLoading={isLoading}
             />
           </Center>
@@ -316,7 +321,7 @@ export function SignUp() {
             <Button
               title='Ir para o login'
               bgColor='gray.300'
-              // onPress={handleNewAccount}
+              onPress={handleGoBack}
             />
           </Center>
         </VStack>
