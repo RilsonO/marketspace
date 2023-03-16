@@ -8,6 +8,8 @@ import {
 } from '@expo-google-fonts/karla';
 import { THEME } from './src/theme';
 import { SignIn } from './src/screens/SignIn';
+import { Loading } from '@components/Loading';
+import { Routes } from '@routes/index';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -18,7 +20,7 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={THEME}>
-      {fontsLoaded ? <SignIn /> : null}
+      {fontsLoaded ? <Routes /> : <Loading />}
     </NativeBaseProvider>
   );
 }
