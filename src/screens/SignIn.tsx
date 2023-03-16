@@ -1,4 +1,5 @@
-import { Platform } from 'react-native';
+import { useState } from 'react';
+import { Platform, TouchableOpacity } from 'react-native';
 import {
   VStack,
   Text,
@@ -7,14 +8,15 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Box,
+  useTheme,
 } from 'native-base';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import EyeSvg from '@assets/eye.svg';
 import LogoSvg from '@assets/logo_with_name.svg';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
+import { Eye, EyeSlash } from 'phosphor-react-native';
 
 const signInSchema = yup.object({
   email: yup.string().required('Informe o email.').email('E-mail inválido.'),
@@ -24,6 +26,7 @@ const signInSchema = yup.object({
 type FormDataProps = yup.InferType<typeof signInSchema>;
 
 export function SignIn() {
+  const { colors, sizes } = useTheme();
   const {
     control,
     handleSubmit,
@@ -31,6 +34,8 @@ export function SignIn() {
   } = useForm<FormDataProps>({
     resolver: yupResolver(signInSchema),
   });
+
+  const [passwordSecureTextEntry, setPasswordSecureTextEntry] = useState(true);
 
   function handleSignIn({ password, email }: FormDataProps) {
     console.log(email, password);
@@ -45,7 +50,7 @@ export function SignIn() {
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
       >
-        <VStack flex={1}>
+        <VStack flex={1} bg='gray.100'>
           <Box bg='gray.200' px={10} pb={10} flex={1} borderBottomRadius={24}>
             <Center my={24}>
               <LogoSvg />
@@ -85,17 +90,30 @@ export function SignIn() {
                 render={({ field: { onChange, value } }) => (
                   <Input
                     placeholder='Senha'
-                    secureTextEntry
+                    secureTextEntry={passwordSecureTextEntry}
                     value={value}
                     onChangeText={onChange}
                     errorMessage={errors.password?.message}
                     InputRightElement={
-                      <EyeSvg
-                        width={20}
-                        height={20}
-                        fill='#000000'
-                        style={{ marginRight: 10 }}
-                      />
+                      <TouchableOpacity
+                        onPress={() =>
+                          setPasswordSecureTextEntry((prev) => !prev)
+                        }
+                      >
+                        {passwordSecureTextEntry ? (
+                          <Eye
+                            size={sizes[5]}
+                            color={colors.gray[500]}
+                            style={{ marginRight: 10 }}
+                          />
+                        ) : (
+                          <EyeSlash
+                            size={sizes[5]}
+                            color={colors.gray[500]}
+                            style={{ marginRight: 10 }}
+                          />
+                        )}
+                      </TouchableOpacity>
                     }
                   />
                 )}
