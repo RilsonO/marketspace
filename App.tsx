@@ -1,4 +1,7 @@
+import 'react-native-gesture-handler';
 import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Host } from 'react-native-portalize';
 import { NativeBaseProvider } from 'native-base';
 import {
   useFonts,
@@ -7,7 +10,6 @@ import {
   Karla_300Light,
 } from '@expo-google-fonts/karla';
 import { THEME } from './src/theme';
-import { SignIn } from './src/screens/SignIn';
 import { Loading } from '@components/Loading';
 import { Routes } from '@routes/index';
 
@@ -19,8 +21,10 @@ export default function App() {
   });
 
   return (
-    <NativeBaseProvider theme={THEME}>
-      {fontsLoaded ? <Routes /> : <Loading />}
-    </NativeBaseProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NativeBaseProvider theme={THEME}>
+        <Host>{fontsLoaded ? <Routes /> : <Loading />}</Host>
+      </NativeBaseProvider>
+    </GestureHandlerRootView>
   );
 }
