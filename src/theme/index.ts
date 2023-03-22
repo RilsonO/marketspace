@@ -26,6 +26,7 @@ export const THEME = extendTheme({
     light: 'Karla_300Light',
   },
   fontSizes: {
+    'xs-': 10,
     xs: 12,
     sm: 14,
     md: 16,
@@ -34,6 +35,7 @@ export const THEME = extendTheme({
     xl: 24,
   },
   sizes: {
+    0.25: 1,
     11: 45,
     22: 88,
   },
