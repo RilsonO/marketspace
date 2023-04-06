@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Box,
   useTheme,
+  useToast,
 } from 'native-base';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
@@ -19,6 +20,8 @@ import { Button } from '@components/Button';
 import { Eye, EyeSlash } from 'phosphor-react-native';
 import { useNavigation } from '@react-navigation/native';
 import { AuthNavigatorRoutesProps } from '@routes/auth.routes';
+import { AppError } from '@utils/AppError';
+import { useAuth } from '@hooks/useAuth';
 
 const signInSchema = yup.object({
   email: yup.string().required('Informe o email.').email('E-mail inválido.'),
@@ -37,11 +40,30 @@ export function SignIn() {
   } = useForm<FormDataProps>({
     resolver: yupResolver(signInSchema),
   });
+  const { signIn } = useAuth();
+  const toast = useToast();
 
   const [passwordSecureTextEntry, setPasswordSecureTextEntry] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  function handleSignIn({ password, email }: FormDataProps) {
-    console.log(email, password);
+  async function handleSignIn({ password, email }: FormDataProps) {
+    try {
+      setIsLoading(true);
+      await signIn(email, password);
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+      const title = isAppError
+        ? error.message
+        : 'Não foi possível entrar. Tente novamente mais tarde.';
+
+      setIsLoading(false);
+
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500',
+      });
+    }
   }
 
   function handleNewAccount() {
@@ -130,7 +152,7 @@ export function SignIn() {
                 title='Entrar'
                 bgColor='blue.400'
                 onPress={handleSubmit(handleSignIn)}
-                // isLoading={isLoading}
+                isLoading={isLoading}
               />
             </Center>
           </Box>
@@ -140,6 +162,7 @@ export function SignIn() {
               Ainda não tem acesso?
             </Text>
             <Button
+              disabled={isLoading}
               title='Criar uma conta'
               bgColor='gray.300'
               onPress={handleNewAccount}

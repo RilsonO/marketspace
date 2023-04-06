@@ -7,6 +7,7 @@ import { Home } from '@screens/Home';
 import { useTheme, Pressable } from 'native-base';
 import { Platform } from 'react-native';
 import { MyAds } from '@screens/MyAds';
+import { useAuth } from '@hooks/useAuth';
 
 type AppRoutes = {
   home: undefined;
@@ -20,6 +21,7 @@ const { Navigator, Screen } = createBottomTabNavigator<AppRoutes>();
 
 export function AppRoutes() {
   const { sizes, colors } = useTheme();
+  const { signOut } = useAuth();
 
   const iconSize = sizes[6];
 
@@ -64,11 +66,7 @@ export function AppRoutes() {
         component={LogOutFakeScreen}
         options={{
           tabBarIcon: () => (
-            <Pressable
-              onPress={() => {
-                console.log('logOut done');
-              }}
-            >
+            <Pressable onPress={signOut}>
               <SignOut color={colors.red[400]} size={iconSize} />
             </Pressable>
           ),
