@@ -29,6 +29,8 @@ import { toMaskedPhone } from '@utils/Masks';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { AppError } from '@utils/AppError';
+import uuid from 'react-native-uuid';
+import { api } from '@services/api';
 
 const signInSchema = yup.object({
   name: yup.string().required('Informe o nome.'),
@@ -49,6 +51,12 @@ const signInSchema = yup.object({
 
 type FormDataProps = yup.InferType<typeof signInSchema>;
 
+type PhotoProps = {
+  name: string;
+  uri: string;
+  type: string;
+};
+
 const PHOTO_SIZE = 22;
 
 export function SignUp() {
@@ -63,18 +71,53 @@ export function SignUp() {
     resolver: yupResolver(signInSchema),
   });
 
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState<PhotoProps>({} as PhotoProps);
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
   const [passwordSecureTextEntry, setPasswordSecureTextEntry] = useState(true);
   const [passwordConfirmSecureTextEntry, setPasswordConfirmSecureTextEntry] =
     useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleGoBack() {
     navigation.goBack();
   }
 
-  function handleSignUp({ password, email }: FormDataProps) {
-    console.log(email, password);
+  async function handleSignUp({ name, password, email, phone }: FormDataProps) {
+    try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('email', email);
+      formData.append('tel', phone);
+      formData.append('password', password);
+      if (!!photo.uri) {
+        formData.append('avatar', photo as any);
+      }
+      setIsLoading(true);
+      await api.post('/users', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      handleGoBack();
+      toast.show({
+        title: 'Conta criada com sucesso!',
+        placement: 'top',
+        bgColor: 'green.500',
+      });
+    } catch (error) {
+      setIsLoading(false);
+      console.log('error: ', error);
+
+      const isAppError = error instanceof AppError;
+      const title = isAppError
+        ? error.message
+        : 'Não foi possível criar a conta. Tente novamente mais tarde.';
+      toast.show({
+        title,
+        placement: 'top',
+        bgColor: 'red.500',
+      });
+    }
   }
 
   async function handleUserPhotoSelect() {
@@ -95,7 +138,7 @@ export function SignUp() {
         )) as FileSystem.FileInfo & { size?: number };
 
         if (photoInfo.size && photoInfo.size / 1024 / 1024 > 5) {
-          setPhoto('');
+          setPhoto({} as PhotoProps);
           return toast.show({
             title: 'Essa Imagem é muito grande. Escolha uma de até 5MB',
             placement: 'top',
@@ -103,7 +146,15 @@ export function SignUp() {
           });
         }
 
-        setPhoto(photoSelected.assets[0].uri);
+        const fileExtension = photoSelected.assets[0].uri.split('.').pop();
+
+        const photoFile = {
+          name: `${String(uuid.v4())}.${fileExtension}`.toLowerCase(),
+          uri: photoSelected.assets[0].uri,
+          type: `${photoSelected.assets[0].type}/${fileExtension}`,
+        } as any;
+
+        setPhoto(photoFile);
 
         toast.show({
           title: 'Foto selecionada!',
@@ -166,7 +217,9 @@ export function SignUp() {
                 />
               ) : (
                 <UserPhoto
-                  source={!!photo ? { uri: photo } : defaultUserPhotoImg}
+                  source={
+                    !!photo.uri ? { uri: photo.uri } : defaultUserPhotoImg
+                  }
                   alt='Foto do usuário'
                   size={PHOTO_SIZE}
                 />
@@ -310,7 +363,7 @@ export function SignUp() {
               title='Criar'
               bgColor='gray.700'
               onPress={handleSubmit(handleSignUp)}
-              // isLoading={isLoading}
+              isLoading={isLoading}
             />
           </Center>
 
