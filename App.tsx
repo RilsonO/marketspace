@@ -12,6 +12,7 @@ import {
 import { THEME } from './src/theme';
 import { Loading } from '@components/Loading';
 import { Routes } from '@routes/index';
+import { AuthContextProvider } from '@contexts/AuthContext';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -23,7 +24,9 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NativeBaseProvider theme={THEME}>
-        <Host>{fontsLoaded ? <Routes /> : <Loading />}</Host>
+        <AuthContextProvider>
+          <Host>{fontsLoaded ? <Routes /> : <Loading />}</Host>
+        </AuthContextProvider>
       </NativeBaseProvider>
     </GestureHandlerRootView>
   );
