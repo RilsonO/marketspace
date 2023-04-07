@@ -31,6 +31,7 @@ import * as FileSystem from 'expo-file-system';
 import { AppError } from '@utils/AppError';
 import uuid from 'react-native-uuid';
 import { api } from '@services/api';
+import { useAuth } from '@hooks/useAuth';
 
 const signInSchema = yup.object({
   name: yup.string().required('Informe o nome.'),
@@ -71,6 +72,8 @@ export function SignUp() {
     resolver: yupResolver(signInSchema),
   });
 
+  const { signIn } = useAuth();
+
   const [photo, setPhoto] = useState<PhotoProps>({} as PhotoProps);
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
   const [passwordSecureTextEntry, setPasswordSecureTextEntry] = useState(true);
@@ -79,6 +82,8 @@ export function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
 
   function handleGoBack() {
+    console.log('handleGoBack is called');
+
     navigation.goBack();
   }
 
@@ -98,25 +103,20 @@ export function SignUp() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      handleGoBack();
-      toast.show({
-        title: 'Conta criada com sucesso!',
-        placement: 'top',
-        bgColor: 'green.500',
-      });
+      await signIn(email, password);
     } catch (error) {
-      setIsLoading(false);
-      console.log('error: ', error);
-
       const isAppError = error instanceof AppError;
       const title = isAppError
         ? error.message
         : 'Não foi possível criar a conta. Tente novamente mais tarde.';
+
       toast.show({
         title,
         placement: 'top',
         bgColor: 'red.500',
       });
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -156,11 +156,11 @@ export function SignUp() {
 
         setPhoto(photoFile);
 
-        toast.show({
-          title: 'Foto selecionada!',
-          placement: 'top',
-          bgColor: 'green.500',
-        });
+        // toast.show({
+        //   title: 'Foto selecionada!',
+        //   placement: 'top',
+        //   bgColor: 'green.500',
+        // });
       }
     } catch (error) {
       const isAppError = error instanceof AppError;
