@@ -31,12 +31,15 @@ import { Dimensions } from 'react-native';
 import { Portal } from 'react-native-portalize';
 import { TagButton } from '@components/TagButton';
 import { Checkbox } from '@components/Checkbox';
+import { useAuth } from '@hooks/useAuth';
+import { api } from '@services/api';
 
 const PHOTO_SIZE = 12;
 const { height } = Dimensions.get('screen');
 
 export function Home() {
   const { colors, sizes } = useTheme();
+  const { user } = useAuth();
 
   const modalizeRef = useRef<Modalize>(null);
 
@@ -66,7 +69,7 @@ export function Home() {
           />
         ) : (
           <UserPhoto
-            source={defaultUserPhotoImg}
+            source={{ uri: `${api.defaults.baseURL}/images/${user.avatar}` }}
             alt='Foto do usuário'
             borderWidth={2}
             size={PHOTO_SIZE}
@@ -78,7 +81,7 @@ export function Home() {
             Boas vindas,
           </Text>
           <Text color='gray.700' fontSize='md' fontFamily='bold'>
-            Maria!
+            {user.name}
           </Text>
         </VStack>
 
