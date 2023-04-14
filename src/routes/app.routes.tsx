@@ -8,11 +8,13 @@ import { useTheme, Pressable } from 'native-base';
 import { Platform } from 'react-native';
 import { MyAds } from '@screens/MyAds';
 import { useAuth } from '@hooks/useAuth';
+import { CreateAd } from '@screens/CreateAd';
 
 type AppRoutes = {
   home: undefined;
   myAds: undefined;
   signOut: undefined;
+  createAd: undefined;
 };
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -70,6 +72,17 @@ export function AppRoutes() {
               <SignOut color={colors.red[400]} size={iconSize} />
             </Pressable>
           ),
+        }}
+      />
+
+      <Screen
+        name='createAd'
+        component={CreateAd}
+        options={{
+          tabBarStyle: {
+            display: 'none',
+          },
+          tabBarButton: () => null,
         }}
       />
     </Navigator>

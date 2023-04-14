@@ -11,3 +11,31 @@ export function toMaskedPhone(value: string) {
     throw error;
   }
 }
+
+export function toMaskedPrice(value: string) {
+  try {
+    return MaskService.toMask('money', value, {
+      precision: 2,
+      separator: ',',
+      delimiter: '.',
+      unit: '',
+      suffixUnit: '',
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
+export function maskedPriceToNumber(value: string) {
+  try {
+    return MaskService.toRawValue('money', value, {
+      precision: 2,
+      separator: ',',
+      delimiter: '.',
+      unit: '',
+      suffixUnit: '',
+    });
+  } catch (error) {
+    throw error;
+  }
+}

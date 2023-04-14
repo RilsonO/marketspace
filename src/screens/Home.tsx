@@ -33,6 +33,8 @@ import { TagButton } from '@components/TagButton';
 import { Checkbox } from '@components/Checkbox';
 import { useAuth } from '@hooks/useAuth';
 import { api } from '@services/api';
+import { useNavigation } from '@react-navigation/native';
+import { AppNavigatorRoutesProps } from '@routes/app.routes';
 
 const PHOTO_SIZE = 12;
 const { height } = Dimensions.get('screen');
@@ -40,6 +42,7 @@ const { height } = Dimensions.get('screen');
 export function Home() {
   const { colors, sizes } = useTheme();
   const { user } = useAuth();
+  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 
   const modalizeRef = useRef<Modalize>(null);
 
@@ -54,6 +57,10 @@ export function Home() {
 
   function handleCloseModalize() {
     modalizeRef.current?.close();
+  }
+
+  function handleOpenCreateAd() {
+    navigate('createAd');
   }
 
   return (
@@ -90,6 +97,7 @@ export function Home() {
           title='Criar anúncio'
           bgColor='gray.700'
           leftIcon={<Plus size={16} color={colors.gray[200]} />}
+          onPress={handleOpenCreateAd}
         />
       </HStack>
 
