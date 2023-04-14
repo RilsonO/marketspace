@@ -1,4 +1,6 @@
 import { Ads } from '@components/Ads';
+import { useNavigation } from '@react-navigation/native';
+import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import {
   Center,
   HStack,
@@ -16,8 +18,14 @@ import { useState } from 'react';
 
 export function MyAds() {
   const { colors, sizes } = useTheme();
+  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
+
   const [filter, setFilter] = useState('Todos');
   const [filterIsOpened, setFilterIsOpened] = useState(false);
+
+  function handleOpenCreateAd() {
+    navigate('createAd');
+  }
 
   return (
     <VStack flex={1} px='6' safeAreaTop>
@@ -26,7 +34,7 @@ export function MyAds() {
           Meus anúncios
         </Text>
 
-        <Pressable position='absolute' right={0}>
+        <Pressable position='absolute' right={0} onPress={handleOpenCreateAd}>
           <Plus size={sizes[6]} color={colors.gray[700]} weight='bold' />
         </Pressable>
       </HStack>
