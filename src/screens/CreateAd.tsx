@@ -25,17 +25,14 @@ import * as ImagePicker from 'expo-image-picker';
 import { AppError } from '@utils/AppError';
 import { ProductSmallPhoto } from '@components/ProductSmallPhoto';
 import { PaymentMethodsDTO } from '@dtos/PaymentMethodsDTO';
-
-type PhotoProps = {
-  name: string;
-  uri: string;
-  type: string;
-};
+import { useAuth } from '@hooks/useAuth';
+import { PhotoProps } from '@components/ImageSlider';
 
 const PHOTO_SIZE = 100;
 
 export function CreateAd() {
   const { colors, sizes } = useTheme();
+  const { user } = useAuth();
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
   const toast = useToast();
 
@@ -170,14 +167,24 @@ export function CreateAd() {
       });
     }
 
+    navigate('previewAd', {
+      user,
+      images,
+      title,
+      description,
+      isNew,
+      price,
+      acceptTrade,
+      paymentMethods,
+    });
     // console.log('preço convertido: ', maskedPriceToNumber(price));
-    console.log('imagens =>', images);
-    console.log('título =>', title);
-    console.log('descrição =>', description);
-    console.log('é novo =>', isNew);
-    console.log('preço =>', rawPrice);
-    console.log('aceita troca =>', acceptTrade);
-    console.log('métodos de pagamento =>', paymentMethods);
+    // console.log('imagens =>', images);
+    // console.log('título =>', title);
+    // console.log('descrição =>', description);
+    // console.log('é novo =>', isNew);
+    // console.log('preço =>', rawPrice);
+    // console.log('aceita troca =>', acceptTrade);
+    // console.log('métodos de pagamento =>', paymentMethods);
   }
 
   return (

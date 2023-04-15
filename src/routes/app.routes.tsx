@@ -9,12 +9,26 @@ import { Platform } from 'react-native';
 import { MyAds } from '@screens/MyAds';
 import { useAuth } from '@hooks/useAuth';
 import { CreateAd } from '@screens/CreateAd';
+import { PreviewAd } from '@screens/PreviewAd';
+import { UserDTO } from '@dtos/UserDTO';
+import { PaymentMethodsDTO } from '@dtos/PaymentMethodsDTO';
+import { PhotoProps } from '@components/ImageSlider';
 
 type AppRoutes = {
   home: undefined;
   myAds: undefined;
   signOut: undefined;
   createAd: undefined;
+  previewAd: {
+    user: UserDTO;
+    title: string;
+    images: PhotoProps[];
+    description: string;
+    acceptTrade: boolean;
+    isNew: boolean;
+    paymentMethods: PaymentMethodsDTO[];
+    price: string;
+  };
 };
 
 export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -78,6 +92,17 @@ export function AppRoutes() {
       <Screen
         name='createAd'
         component={CreateAd}
+        options={{
+          tabBarStyle: {
+            display: 'none',
+          },
+          tabBarButton: () => null,
+        }}
+      />
+
+      <Screen
+        name='previewAd'
+        component={PreviewAd}
         options={{
           tabBarStyle: {
             display: 'none',
