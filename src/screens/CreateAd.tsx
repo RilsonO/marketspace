@@ -2,7 +2,7 @@ import { Button } from '@components/Button';
 import { Checkbox } from '@components/Checkbox';
 import { Input } from '@components/Input';
 import { Radio } from '@components/Radio';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { maskedPriceToNumber, toMaskedPrice } from '@utils/Masks';
 import {
@@ -19,14 +19,17 @@ import {
   useToast,
 } from 'native-base';
 import { ArrowLeft, Plus, X } from 'phosphor-react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import uuid from 'react-native-uuid';
 import * as ImagePicker from 'expo-image-picker';
 import { AppError } from '@utils/AppError';
 import { ProductSmallPhoto } from '@components/ProductSmallPhoto';
-import { PaymentMethodsDTO } from '@dtos/PaymentMethodsDTO';
 import { useAuth } from '@hooks/useAuth';
-import { PhotoProps } from '@components/ImageSlider';
+import { IPhoto } from 'src/interfaces/IPhoto';
+import { IPaymentMethods } from 'src/interfaces/IPaymentMethods';
+import { HomeTabsNavigatorRoutesProps } from '@routes/home.tabs.routes';
+import { IProduct } from 'src/interfaces/IProduct';
+import { api } from '@services/api';
 
 const PHOTO_SIZE = 100;
 
@@ -34,19 +37,27 @@ export function CreateAd() {
   const { colors, sizes } = useTheme();
   const { user } = useAuth();
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
+  const { navigate: navigateTabs } =
+    useNavigation<HomeTabsNavigatorRoutesProps>();
   const toast = useToast();
+  const route = useRoute();
 
-  const [images, setImages] = useState<PhotoProps[]>([]);
-  const [title, setTitle] = useState('');
+  const params = route.params as IProduct;
+
+  const [images, setImages] = useState<IPhoto[]>([]);
+  const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [isNew, setIsNew] = useState<boolean | null>(null);
   const [price, setPrice] = useState('');
   const [acceptTrade, setAcceptTrade] = useState(false);
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
-  const [paymentMethods, setPaymentMethods] = useState<PaymentMethodsDTO[]>([]);
+  const [paymentMethods, setPaymentMethods] = useState<IPaymentMethods[]>([]);
+  const [isActive, setIsActive] = useState(true);
+  const [imagesToDelete, setImagesToDelete] = useState<string[]>([]);
+  const [headerTitle, setHeaderTitle] = useState('Criar anúncio');
 
   function handleGoBackToMyAdsScreen() {
-    navigate('myAds');
+    navigateTabs('myAds');
   }
 
   async function handlePhotoSelect() {
@@ -87,11 +98,21 @@ export function CreateAd() {
     }
   }
 
-  function handleRemovePhoto(name: string) {
-    setImages((prev) => prev.filter((item) => item.name !== name));
+  function handleRemovePhoto(photo: IPhoto) {
+    setImages((prev) =>
+      prev.filter((item) => {
+        if (
+          item.name === photo.name &&
+          photo.uri.match(`${api.defaults.baseURL}/images/`)
+        ) {
+          setImagesToDelete((prev) => [...prev, photo.name]);
+        }
+        return item.name !== photo.name;
+      })
+    );
   }
 
-  function handlePaymentMethods(payment_method: PaymentMethodsDTO) {
+  function handlePaymentMethods(payment_method: IPaymentMethods) {
     const existMethod = paymentMethods.find(
       (paymentMethod) => paymentMethod === payment_method
     );
@@ -105,17 +126,6 @@ export function CreateAd() {
     }
   }
 
-  function handleCancel() {
-    setImages([]);
-    setTitle('');
-    setDescription('');
-    setIsNew(null);
-    setPrice('');
-    setAcceptTrade(false);
-    setPaymentMethods([]);
-    handleGoBackToMyAdsScreen();
-  }
-
   function handleNavigateToAdPreview() {
     if (images.length <= 0) {
       return toast.show({
@@ -125,7 +135,7 @@ export function CreateAd() {
       });
     }
 
-    if (title === '') {
+    if (name === '') {
       return toast.show({
         title: 'Informe o título do seu anúncio.',
         placement: 'top',
@@ -169,23 +179,33 @@ export function CreateAd() {
 
     navigate('previewAd', {
       user,
-      images,
-      title,
+      product_images: images,
+      name,
       description,
-      isNew,
-      price,
-      acceptTrade,
-      paymentMethods,
+      is_new: isNew,
+      price: rawPrice,
+      accept_trade: acceptTrade,
+      payment_methods: paymentMethods,
+      imagesToDelete: imagesToDelete,
+      id: params?.id,
+      is_active: isActive,
     });
-    // console.log('preço convertido: ', maskedPriceToNumber(price));
-    // console.log('imagens =>', images);
-    // console.log('título =>', title);
-    // console.log('descrição =>', description);
-    // console.log('é novo =>', isNew);
-    // console.log('preço =>', rawPrice);
-    // console.log('aceita troca =>', acceptTrade);
-    // console.log('métodos de pagamento =>', paymentMethods);
   }
+
+  useEffect(() => {
+    if (params) {
+      setImages(params.product_images);
+      setName(params.name);
+      setDescription(params.description);
+      setIsNew(params.is_new);
+      setPrice(toMaskedPrice(String(params.price / 100)));
+      setAcceptTrade(params.accept_trade);
+      setPaymentMethods(params.payment_methods);
+      setIsActive(params?.is_active ?? true);
+      setImagesToDelete([]);
+      setHeaderTitle('Editar anúncio');
+    }
+  }, [params]);
 
   return (
     <VStack flex={1} safeAreaTop>
@@ -200,7 +220,7 @@ export function CreateAd() {
         </Pressable>
 
         <Text color='gray.700' fontFamily='bold' fontSize='lg+'>
-          Criar anúncio
+          {headerTitle}
         </Text>
       </HStack>
 
@@ -233,7 +253,7 @@ export function CreateAd() {
                 position='absolute'
                 top={1}
                 right={1}
-                onPress={() => handleRemovePhoto(item.name)}
+                onPress={() => handleRemovePhoto(item)}
               >
                 <X size={12} color={'white'} />
               </Pressable>
@@ -278,8 +298,8 @@ export function CreateAd() {
 
         <Input
           placeholder='Título do anúncio'
-          value={title}
-          onChangeText={setTitle}
+          value={name}
+          onChangeText={setName}
         />
 
         <Input
@@ -312,7 +332,18 @@ export function CreateAd() {
           placeholder='Valor do produto'
           value={price}
           onChangeText={(text) => {
-            setPrice(toMaskedPrice(text));
+            if (text === '0,0' || text === '0,') {
+              setPrice('');
+              return;
+            }
+
+            const firstMaskedText = toMaskedPrice(text);
+            const firstMaskedTextConvertToNumber =
+              maskedPriceToNumber(firstMaskedText);
+            const cleanMaskedText = toMaskedPrice(
+              firstMaskedTextConvertToNumber
+            );
+            setPrice(cleanMaskedText);
           }}
         />
 
@@ -374,7 +405,7 @@ export function CreateAd() {
           flex={1}
           bgColor='gray.300'
           marginRight={2}
-          onPress={handleCancel}
+          onPress={handleGoBackToMyAdsScreen}
         />
         <Button
           title='Avançar'
