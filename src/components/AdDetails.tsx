@@ -1,45 +1,34 @@
 import { Box, HStack, ScrollView, Text, VStack, useTheme } from 'native-base';
-import { ImageSlider, PhotoProps } from './ImageSlider';
+import { ImageSlider } from './ImageSlider';
 import { UserPhoto } from './UserPhoto';
-import { UserDTO } from '@dtos/UserDTO';
-import { PaymentMethodsDTO } from '@dtos/PaymentMethodsDTO';
 import { api } from '@services/api';
 import {
-  ArrowLeft,
   Bank,
   Barcode,
   CreditCard,
   Money,
   QrCode,
-  Tag,
 } from 'phosphor-react-native';
+import { IProduct } from 'src/interfaces/IProduct';
+import { toMaskedPrice } from '@utils/Masks';
+import { IPaymentMethods } from 'src/interfaces/IPaymentMethods';
 
 const PHOTO_SIZE = 6;
 
-export type AdDetailsProps = {
-  user: UserDTO;
-  title: string;
-  images: PhotoProps[];
-  description: string;
-  acceptTrade: boolean;
-  isNew: boolean;
-  paymentMethods: PaymentMethodsDTO[];
-  price: string;
-};
-
 export function AdDetails({
   user,
-  title,
-  images,
+  name,
+  product_images,
   description,
-  acceptTrade,
-  isNew,
-  paymentMethods,
+  accept_trade,
+  is_new,
+  payment_methods,
   price,
-}: AdDetailsProps) {
+  is_active = true,
+}: IProduct) {
   const { colors, sizes } = useTheme();
 
-  function paymentMethodIndicator(paymentMethod: PaymentMethodsDTO) {
+  function paymentMethodIndicator(paymentMethod: IPaymentMethods) {
     switch (paymentMethod) {
       case 'boleto':
         return (
@@ -94,7 +83,8 @@ export function AdDetails({
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <ImageSlider imagesUrl={images} />
+      <ImageSlider imagesUrl={product_images} disabled={!is_active} />
+
       <VStack px='6'>
         <HStack my='6'>
           <UserPhoto
@@ -109,7 +99,7 @@ export function AdDetails({
         </HStack>
 
         <Box
-          bg={isNew ? 'blue.400' : 'gray.300'}
+          bg={is_new ? 'blue.400' : 'gray.300'}
           rounded='full'
           px='2'
           mb='2'
@@ -118,15 +108,15 @@ export function AdDetails({
           <Text
             fontSize='xs-'
             fontFamily='bold'
-            color={isNew ? 'gray.100' : 'gray.600'}
+            color={is_new ? 'gray.100' : 'gray.600'}
           >
-            {isNew ? 'NOVO' : 'USADO'}
+            {is_new ? 'NOVO' : 'USADO'}
           </Text>
         </Box>
 
         <HStack alignItems='center' justifyContent='space-between'>
           <Text flex={1} fontFamily='bold' fontSize='lg+' color='gray.700'>
-            {title}
+            {name}
           </Text>
           <Text
             numberOfLines={1}
@@ -135,7 +125,7 @@ export function AdDetails({
             color='blue.400'
             maxWidth='1/3'
           >
-            R$ <Text fontSize='lg+'>{price}</Text>
+            R$ <Text fontSize='lg+'>{toMaskedPrice(String(price / 100))}</Text>
           </Text>
         </HStack>
 
@@ -145,14 +135,14 @@ export function AdDetails({
 
         <Text fontFamily='bold' fontSize='sm' color='gray.600' mt='4'>
           Aceita troca?{' '}
-          <Text fontFamily='regular'>{acceptTrade ? 'Sim' : 'Não'}</Text>
+          <Text fontFamily='regular'>{accept_trade ? 'Sim' : 'Não'}</Text>
         </Text>
 
         <Text fontFamily='bold' fontSize='sm' color='gray.600' mt='4'>
           Meios de pagamento:
         </Text>
 
-        {paymentMethods.map((item, index) => (
+        {payment_methods.map((item, index) => (
           <HStack key={item + String(index)} mt='1'>
             {paymentMethodIndicator(item)}
           </HStack>

@@ -2,17 +2,13 @@ import React, { useRef, useState } from 'react';
 import { ViewToken, Dimensions } from 'react-native';
 import { ImageIndicator } from './ImageIndicator';
 import { Box, FlatList, HStack, Image, Text, VStack } from 'native-base';
+import { IPhoto } from 'src/interfaces/IPhoto';
 
 const { width: WIDTH } = Dimensions.get('screen');
 
-export type PhotoProps = {
-  name: string;
-  uri: string;
-  type: string;
-};
-
 type Props = {
-  imagesUrl: PhotoProps[];
+  imagesUrl: IPhoto[];
+  disabled: boolean;
 };
 
 interface ChangeImageProps {
@@ -20,7 +16,7 @@ interface ChangeImageProps {
   changed: ViewToken[];
 }
 
-export function ImageSlider({ imagesUrl }: Props) {
+export function ImageSlider({ imagesUrl, disabled }: Props) {
   const [imageIndex, setImageIndex] = useState(0);
 
   const indexChanged = useRef((info: ChangeImageProps) => {
@@ -65,6 +61,21 @@ export function ImageSlider({ imagesUrl }: Props) {
             />
           ))}
         </HStack>
+      )}
+
+      {disabled && (
+        <Box
+          position='absolute'
+          w='full'
+          h='72'
+          bg='gray.700:alpha.60'
+          alignItems='center'
+          justifyContent='center'
+        >
+          <Text fontSize='sm' fontFamily='bold' color='gray.100'>
+            ANÚNCIO DESATIVADO
+          </Text>
+        </Box>
       )}
     </VStack>
   );

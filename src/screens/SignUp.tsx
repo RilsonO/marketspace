@@ -16,8 +16,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import EyeSvg from '@assets/eye.svg';
-import EyeSlashSvg from '@assets/eye_slash.svg';
 import LogoSvg from '@assets/logo.svg';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
@@ -82,8 +80,6 @@ export function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
 
   function handleGoBack() {
-    console.log('handleGoBack is called');
-
     navigation.goBack();
   }
 
@@ -155,12 +151,6 @@ export function SignUp() {
         } as any;
 
         setPhoto(photoFile);
-
-        // toast.show({
-        //   title: 'Foto selecionada!',
-        //   placement: 'top',
-        //   bgColor: 'green.500',
-        // });
       }
     } catch (error) {
       const isAppError = error instanceof AppError;

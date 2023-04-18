@@ -1,115 +1,36 @@
-import {
-  createBottomTabNavigator,
-  BottomTabNavigationProp,
-} from '@react-navigation/bottom-tabs';
-import { House, Tag, SignOut } from 'phosphor-react-native';
-import { Home } from '@screens/Home';
-import { useTheme, Pressable } from 'native-base';
-import { Platform } from 'react-native';
-import { MyAds } from '@screens/MyAds';
-import { useAuth } from '@hooks/useAuth';
 import { CreateAd } from '@screens/CreateAd';
 import { PreviewAd } from '@screens/PreviewAd';
-import { UserDTO } from '@dtos/UserDTO';
-import { PaymentMethodsDTO } from '@dtos/PaymentMethodsDTO';
-import { PhotoProps } from '@components/ImageSlider';
+import { MyAdDetails } from '@screens/MyAdDetails';
+import { IProduct } from 'src/interfaces/IProduct';
+import {
+  NativeStackNavigationProp,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
+import { HomeTabsRoutes } from './home.tabs.routes';
 
 type AppRoutes = {
-  home: undefined;
-  myAds: undefined;
-  signOut: undefined;
-  createAd: undefined;
-  previewAd: {
-    user: UserDTO;
-    title: string;
-    images: PhotoProps[];
-    description: string;
-    acceptTrade: boolean;
-    isNew: boolean;
-    paymentMethods: PaymentMethodsDTO[];
-    price: string;
+  homeTabs: undefined;
+  createAd: undefined | IProduct;
+  previewAd: IProduct & {
+    imagesToDelete: string[];
   };
+  myAdDetails: { id: string };
 };
 
-export type AppNavigatorRoutesProps = BottomTabNavigationProp<AppRoutes>;
+export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutes>;
 
-const { Navigator, Screen } = createBottomTabNavigator<AppRoutes>();
+const { Navigator, Screen } = createNativeStackNavigator<AppRoutes>();
 
 export function AppRoutes() {
-  const { sizes, colors } = useTheme();
-  const { signOut } = useAuth();
-
-  const iconSize = sizes[6];
-
-  const LogOutFakeScreen = () => {
-    return null;
-  };
-
   return (
-    <Navigator
-      screenOptions={{
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: colors.gray[600],
-        tabBarInactiveTintColor: colors.gray[400],
-        tabBarStyle: {
-          backgroundColor: colors.gray[200],
-          borderTopWidth: 0,
-          height: Platform.OS === 'android' ? 'auto' : 96,
-          paddingBottom: sizes[10],
-          paddingTop: sizes[6],
-        },
-      }}
-    >
-      <Screen
-        name='home'
-        component={Home}
-        options={{
-          tabBarIcon: ({ color }) => <House color={color} size={iconSize} />,
-        }}
-      />
+    <Navigator screenOptions={{ headerShown: false, gestureEnabled: false }}>
+      <Screen name='homeTabs' component={HomeTabsRoutes} />
 
-      <Screen
-        name='myAds'
-        component={MyAds}
-        options={{
-          tabBarIcon: ({ color }) => <Tag color={color} size={iconSize} />,
-        }}
-      />
+      <Screen name='createAd' component={CreateAd} />
 
-      <Screen
-        name='signOut'
-        component={LogOutFakeScreen}
-        options={{
-          tabBarIcon: () => (
-            <Pressable onPress={signOut}>
-              <SignOut color={colors.red[400]} size={iconSize} />
-            </Pressable>
-          ),
-        }}
-      />
+      <Screen name='previewAd' component={PreviewAd} />
 
-      <Screen
-        name='createAd'
-        component={CreateAd}
-        options={{
-          tabBarStyle: {
-            display: 'none',
-          },
-          tabBarButton: () => null,
-        }}
-      />
-
-      <Screen
-        name='previewAd'
-        component={PreviewAd}
-        options={{
-          tabBarStyle: {
-            display: 'none',
-          },
-          tabBarButton: () => null,
-        }}
-      />
+      <Screen name='myAdDetails' component={MyAdDetails} />
     </Navigator>
   );
 }
