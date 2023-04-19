@@ -16,9 +16,11 @@ class ProductMap {
     payment_methods,
     product_images,
     user,
+    user_id,
   }: ProductDTO): IProduct {
     return {
       id: id ?? String(uuid.v4()),
+      user_id: user_id ?? String(uuid.v4()),
       name,
       description,
       is_new,
