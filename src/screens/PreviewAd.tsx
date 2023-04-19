@@ -50,7 +50,7 @@ export function PreviewAd() {
         },
       });
 
-      navigate('myAdDetails', { id: data.id });
+      navigate('adDetails', { id: data.id });
     } catch (error) {
       const isAppError = error instanceof AppError;
       const title = isAppError
@@ -109,7 +109,7 @@ export function PreviewAd() {
         });
       }
 
-      navigate('myAdDetails', { id: params.id as string });
+      navigate('adDetails', { id: params.id as string });
     } catch (error) {
       const isAppError = error instanceof AppError;
       const title = isAppError
