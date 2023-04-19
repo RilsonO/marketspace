@@ -18,27 +18,32 @@ import {
   PencilSimpleLine,
   Power,
   TrashSimple,
+  WhatsappLogo,
 } from 'phosphor-react-native';
 import { api } from '@services/api';
-import { AdDetails } from '@components/AdDetails';
+import { AdDetails as AdDetailsComponent } from '@components/AdDetails';
 import { AppError } from '@utils/AppError';
 import { useCallback, useEffect, useState } from 'react';
 import { IProduct } from 'src/interfaces/IProduct';
 import { ProductMap } from '@mappers/ProductMap';
 import { Loading } from '@components/Loading';
 import { HomeTabsNavigatorRoutesProps } from '@routes/home.tabs.routes';
+import { useAuth } from '@hooks/useAuth';
+import { toMaskedPrice, unMask } from '@utils/Masks';
+import { Linking, Platform } from 'react-native';
 
 type ParamsProps = {
   id: string;
 };
 
-export function MyAdDetails() {
+export function AdDetails() {
   const { colors, sizes } = useTheme();
   const toast = useToast();
-  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
+  const { navigate, goBack } = useNavigation<AppNavigatorRoutesProps>();
   const { navigate: navigateHomeTabs } =
     useNavigation<HomeTabsNavigatorRoutesProps>();
   const route = useRoute();
+  const { user } = useAuth();
 
   const params = route.params as ParamsProps;
 
@@ -49,11 +54,36 @@ export function MyAdDetails() {
   const [data, setData] = useState<IProduct>({} as IProduct);
 
   function handleGoBack() {
-    navigateHomeTabs('myAds');
+    if (user.id === data?.user_id) {
+      navigateHomeTabs('myAds');
+    } else {
+      goBack();
+    }
   }
 
   function handleNavigateToEditAd() {
     navigate('createAd', data);
+  }
+
+  async function handleOpenWhatsApp() {
+    const whatsappUrl = `whatsapp://send?phone=55${unMask(data.user.tel)}`;
+    const telUrl = `tel://${unMask(data.user.tel)}`;
+
+    const whatsappSupported = await Linking.canOpenURL(whatsappUrl);
+    const telSupported = await Linking.canOpenURL(telUrl);
+
+    if (whatsappSupported) {
+      Linking.openURL(whatsappUrl);
+    } else if (telSupported) {
+      Linking.openURL(telUrl);
+    } else {
+      toast.show({
+        title:
+          'Não foi possível contactar o vendedor. Tente novamente mais tarde.',
+        placement: 'top',
+        bgColor: 'red.500',
+      });
+    }
   }
 
   async function handleDeleteAd() {
@@ -108,6 +138,8 @@ export function MyAdDetails() {
 
       const { data } = await api.get(`/products/${params.id}`);
 
+      console.log('product: ', data);
+
       setData(ProductMap.toIProduct(data));
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -143,32 +175,77 @@ export function MyAdDetails() {
           <ArrowLeft size={sizes[6]} color={colors.gray[700]} />
         </Pressable>
 
-        <Pressable onPress={handleNavigateToEditAd}>
-          <PencilSimpleLine size={sizes[6]} color={colors.gray[700]} />
-        </Pressable>
+        {user.id === data?.user_id && (
+          <Pressable onPress={handleNavigateToEditAd}>
+            <PencilSimpleLine size={sizes[6]} color={colors.gray[700]} />
+          </Pressable>
+        )}
       </HStack>
 
-      {isLoading ? <Loading /> : <AdDetails {...data} is_active={is_active} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <AdDetailsComponent {...data} is_active={is_active} />
+      )}
 
-      <VStack safeAreaBottom pt='6' px='6' style={{ gap: 4 }}>
-        <Button
-          alignSelf='center'
-          title={is_active ? 'Desativar anúncio' : 'Reativar anúncio'}
-          bgColor={is_active ? 'gray.700' : 'blue.400'}
-          leftIcon={<Power size={sizes[4]} color={colors.gray[200]} />}
-          onPress={handleDisableAd}
-          isLoading={isUpdating}
-          disabled={isDeleting}
-        />
-        <Button
-          title='Excluir anúncio'
-          bgColor='gray.300'
-          leftIcon={<TrashSimple size={sizes[4]} color={colors.gray[500]} />}
-          isLoading={isDeleting}
-          disabled={isUpdating}
-          onPress={handleDeleteAd}
-        />
-      </VStack>
+      {user.id === data?.user_id ? (
+        <VStack safeAreaBottom pt='6' pb='3' px='6' style={{ gap: 4 }}>
+          <Button
+            alignSelf='center'
+            title={is_active ? 'Desativar anúncio' : 'Reativar anúncio'}
+            bgColor={is_active ? 'gray.700' : 'blue.400'}
+            leftIcon={<Power size={sizes[4]} color={colors.gray[200]} />}
+            onPress={handleDisableAd}
+            isLoading={isUpdating}
+            disabled={isDeleting}
+          />
+          <Button
+            title='Excluir anúncio'
+            bgColor='gray.300'
+            leftIcon={<TrashSimple size={sizes[4]} color={colors.gray[500]} />}
+            isLoading={isDeleting}
+            disabled={isUpdating}
+            onPress={handleDeleteAd}
+          />
+        </VStack>
+      ) : (
+        <HStack
+          safeAreaBottom
+          pt='6'
+          pb='3'
+          px='6'
+          alignItems='center'
+          justifyContent='space-between'
+          bg='white'
+        >
+          <Text
+            numberOfLines={1}
+            fontFamily='bold'
+            fontSize='sm'
+            color='blue.400'
+            maxWidth='1/3'
+            py='2'
+          >
+            R$ <Text fontSize='xl'>{toMaskedPrice(String(data.price))}</Text>
+          </Text>
+          <Button
+            flex={1}
+            maxWidth={'1/2'}
+            title='Entrar em contato'
+            bgColor='blue.400'
+            leftIcon={
+              <WhatsappLogo
+                size={sizes[4]}
+                weight='fill'
+                color={colors.gray[200]}
+              />
+            }
+            isLoading={isDeleting}
+            disabled={isUpdating}
+            onPress={handleOpenWhatsApp}
+          />
+        </HStack>
+      )}
     </VStack>
   );
 }
