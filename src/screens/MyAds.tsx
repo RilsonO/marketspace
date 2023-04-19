@@ -111,7 +111,7 @@ export function MyAds() {
         </Menu>
       </HStack>
 
-      <FlatList
+      {/* <FlatList
         data={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
         keyExtractor={(item) => String(item)}
         renderItem={({ item }) => <Ads showAvatar={false} />}
@@ -124,7 +124,7 @@ export function MyAds() {
           justifyContent: 'space-between',
         }}
         showsVerticalScrollIndicator={false}
-      />
+      /> */}
     </VStack>
   );
 }

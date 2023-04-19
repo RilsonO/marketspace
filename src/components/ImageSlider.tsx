@@ -63,7 +63,7 @@ export function ImageSlider({ imagesUrl, disabled }: Props) {
         </HStack>
       )}
 
-      {disabled && (
+      {(disabled || imagesUrl.length <= 0) && (
         <Box
           position='absolute'
           w='full'
@@ -73,7 +73,7 @@ export function ImageSlider({ imagesUrl, disabled }: Props) {
           justifyContent='center'
         >
           <Text fontSize='sm' fontFamily='bold' color='gray.100'>
-            ANÚNCIO DESATIVADO
+            {imagesUrl.length <= 0 ? 'SEM IMAGEM' : 'ANÚNCIO DESATIVADO'}
           </Text>
         </Box>
       )}

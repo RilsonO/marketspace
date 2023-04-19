@@ -11,10 +11,15 @@ import {
   storageAuthTokenRemove,
   storageAuthTokenSave,
 } from '@storage/storageAuthToken';
+import { IProduct } from 'src/interfaces/IProduct';
+import { ProductMap } from '@mappers/ProductMap';
+import { ProductDTO } from '@dtos/ProductDTO';
 
 export type AuthContextDataProps = {
   user: UserDTO;
-  updateUserProfile: (userUpdated: UserDTO) => Promise<void>;
+  userProducts: IProduct[];
+  updateUserProfile: () => Promise<void>;
+  fetchUserProducts: () => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   isLoadingUserStorageData: boolean;
@@ -30,6 +35,9 @@ const AuthContext = createContext<AuthContextDataProps>(
 
 function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [user, setUser] = useState<UserDTO>({} as UserDTO);
+  const [userProducts, setUserProducts] = useState<IProduct[]>(
+    [] as IProduct[]
+  );
   const [isLoadingUserStorageData, setIsLoadingUserStorageData] =
     useState(true);
 
@@ -86,10 +94,22 @@ function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
   }
 
-  async function updateUserProfile(userUpdated: UserDTO) {
+  async function updateUserProfile() {
     try {
-      setUser(userUpdated);
-      await storageUserSave(userUpdated);
+      const { data } = await api.get('/users/me');
+      setUser(data);
+      await storageUserSave(data);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async function fetchUserProducts() {
+    try {
+      const { data } = await api.get('/users/products');
+      setUserProducts(
+        data.map((item: ProductDTO) => ProductMap.toIProduct(item))
+      );
     } catch (error) {
       throw error;
     }
@@ -128,7 +148,9 @@ function AuthContextProvider({ children }: AuthContextProviderProps) {
     <AuthContext.Provider
       value={{
         user,
+        userProducts,
         updateUserProfile,
+        fetchUserProducts,
         signIn,
         signOut,
         isLoadingUserStorageData,

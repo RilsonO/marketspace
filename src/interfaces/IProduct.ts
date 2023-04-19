@@ -12,5 +12,6 @@ export interface IProduct {
   payment_methods: IPaymentMethods[];
   product_images: IPhoto[];
   is_active?: boolean;
+  user_id?: string;
   user: UserDTO;
 }

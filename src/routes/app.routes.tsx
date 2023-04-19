@@ -1,6 +1,6 @@
 import { CreateAd } from '@screens/CreateAd';
 import { PreviewAd } from '@screens/PreviewAd';
-import { MyAdDetails } from '@screens/MyAdDetails';
+import { AdDetails } from '@screens/AdDetails';
 import { IProduct } from 'src/interfaces/IProduct';
 import {
   NativeStackNavigationProp,
@@ -14,7 +14,7 @@ type AppRoutes = {
   previewAd: IProduct & {
     imagesToDelete: string[];
   };
-  myAdDetails: { id: string };
+  adDetails: { id: string };
 };
 
 export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutes>;
@@ -30,7 +30,7 @@ export function AppRoutes() {
 
       <Screen name='previewAd' component={PreviewAd} />
 
-      <Screen name='myAdDetails' component={MyAdDetails} />
+      <Screen name='adDetails' component={AdDetails} />
     </Navigator>
   );
 }
