@@ -125,7 +125,7 @@ export function AdDetails({
             color='blue.400'
             maxWidth='1/3'
           >
-            R$ <Text fontSize='lg+'>{toMaskedPrice(String(price / 100))}</Text>
+            R$ <Text fontSize='lg+'>{toMaskedPrice(String(price))}</Text>
           </Text>
         </HStack>
 

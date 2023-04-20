@@ -43,15 +43,15 @@ export function AdDetails() {
   const { navigate: navigateHomeTabs } =
     useNavigation<HomeTabsNavigatorRoutesProps>();
   const route = useRoute();
-  const { user } = useAuth();
+  const { user, fetchUserProducts } = useAuth();
 
   const params = route.params as ParamsProps;
 
   const [isUpdating, setIsUpdating] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [data, setData] = useState<IProduct>({} as IProduct);
   const [is_active, setIs_active] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const [data, setData] = useState<IProduct>({} as IProduct);
 
   function handleGoBack() {
     if (user.id === data?.user_id) {
@@ -62,6 +62,7 @@ export function AdDetails() {
   }
 
   function handleNavigateToEditAd() {
+    console.log('[handleNavigateToEditAd] product: ', data);
     navigate('createAd', data);
   }
 
@@ -90,7 +91,7 @@ export function AdDetails() {
     try {
       setIsDeleting(true);
       await api.delete(`/products/${params.id}`);
-
+      await fetchUserProducts();
       handleGoBack();
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -110,11 +111,14 @@ export function AdDetails() {
 
   async function handleDisableAd() {
     try {
-      setIsDeleting(true);
-      const { data } = await api.patch(`/products/${params.id}`, {
+      setIsUpdating(true);
+      await api.patch(`/products/${params.id}`, {
         is_active: !is_active,
       });
-
+      await fetchUserProducts();
+      let dataState = data;
+      dataState.is_active = !is_active;
+      setData(dataState);
       setIs_active((prev) => !prev);
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -128,7 +132,7 @@ export function AdDetails() {
         bgColor: 'red.500',
       });
     } finally {
-      setIsDeleting(false);
+      setIsUpdating(false);
     }
   }
 
@@ -138,9 +142,8 @@ export function AdDetails() {
 
       const { data } = await api.get(`/products/${params.id}`);
 
-      console.log('product: ', data);
-
       setData(ProductMap.toIProduct(data));
+      setIs_active(data.is_active);
     } catch (error) {
       const isAppError = error instanceof AppError;
       const title = isAppError

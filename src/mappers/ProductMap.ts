@@ -17,6 +17,7 @@ class ProductMap {
     product_images,
     user,
     user_id,
+    is_active,
   }: ProductDTO): IProduct {
     return {
       id: id ?? String(uuid.v4()),
@@ -24,6 +25,7 @@ class ProductMap {
       name,
       description,
       is_new,
+      is_active,
       price,
       accept_trade,
       payment_methods: payment_methods.map((item) =>
