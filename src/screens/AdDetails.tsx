@@ -62,21 +62,15 @@ export function AdDetails() {
   }
 
   function handleNavigateToEditAd() {
-    console.log('[handleNavigateToEditAd] product: ', data);
     navigate('createAd', data);
   }
 
   async function handleOpenWhatsApp() {
-    const whatsappUrl = `whatsapp://send?phone=55${unMask(data.user.tel)}`;
-    const telUrl = `tel://${unMask(data.user.tel)}`;
-
+    const whatsappUrl = `https://wa.me/55${unMask(data.user.tel)}`;
     const whatsappSupported = await Linking.canOpenURL(whatsappUrl);
-    const telSupported = await Linking.canOpenURL(telUrl);
 
     if (whatsappSupported) {
       Linking.openURL(whatsappUrl);
-    } else if (telSupported) {
-      Linking.openURL(telUrl);
     } else {
       toast.show({
         title:
