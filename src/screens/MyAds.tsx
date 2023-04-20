@@ -1,5 +1,6 @@
 import { Ads } from '@components/Ads';
-import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '@hooks/useAuth';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import {
   Center,
@@ -14,18 +15,33 @@ import {
   FlatList,
 } from 'native-base';
 import { CaretDown, CaretUp, Plus } from 'phosphor-react-native';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { IProduct } from 'src/interfaces/IProduct';
 
 export function MyAds() {
   const { colors, sizes } = useTheme();
+  const { userProducts } = useAuth();
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 
   const [filter, setFilter] = useState('Todos');
   const [filterIsOpened, setFilterIsOpened] = useState(false);
+  const [data, setData] = useState<IProduct[]>([] as IProduct[]);
 
   function handleOpenCreateAd() {
     navigate('createAd');
   }
+
+  useEffect(() => {
+    if (filter === 'Todos') {
+      setData(userProducts);
+    }
+    if (filter === 'Ativos') {
+      setData(userProducts.filter((product) => product.is_active === true));
+    }
+    if (filter === 'Inativos') {
+      setData(userProducts.filter((product) => product.is_active === false));
+    }
+  }, [filter, userProducts]);
 
   return (
     <VStack flex={1} px='6' safeAreaTop>
@@ -41,7 +57,7 @@ export function MyAds() {
 
       <HStack justifyContent='space-between' alignItems='center'>
         <Text fontFamily='regular' fontSize='sm' color='gray.600'>
-          9 anúncios
+          {userProducts.length} anúncio{userProducts.length > 1 && 's'}
         </Text>
 
         <Menu
@@ -111,10 +127,10 @@ export function MyAds() {
         </Menu>
       </HStack>
 
-      {/* <FlatList
-        data={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+      <FlatList
+        data={data}
         keyExtractor={(item) => String(item)}
-        renderItem={({ item }) => <Ads showAvatar={false} />}
+        renderItem={({ item }) => <Ads showAvatar={false} {...item} />}
         horizontal={false}
         numColumns={2}
         style={{
@@ -124,7 +140,7 @@ export function MyAds() {
           justifyContent: 'space-between',
         }}
         showsVerticalScrollIndicator={false}
-      /> */}
+      />
     </VStack>
   );
 }
