@@ -47,7 +47,7 @@ export function CreateAd() {
   const [images, setImages] = useState<IPhoto[]>([]);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [isNew, setIsNew] = useState<boolean | null>(null);
+  const [isNew, setIsNew] = useState<string>('');
   const [price, setPrice] = useState('');
   const [acceptTrade, setAcceptTrade] = useState(false);
   const [photoIsLoading, setPhotoIsLoading] = useState(false);
@@ -112,10 +112,12 @@ export function CreateAd() {
     );
   }
 
+  function findPaymentMethod(payment_method: IPaymentMethods) {
+    return paymentMethods.includes(payment_method);
+  }
+
   function handlePaymentMethods(payment_method: IPaymentMethods) {
-    const existMethod = paymentMethods.find(
-      (paymentMethod) => paymentMethod === payment_method
-    );
+    const existMethod = findPaymentMethod(payment_method);
 
     if (existMethod) {
       setPaymentMethods((prev) =>
@@ -151,7 +153,7 @@ export function CreateAd() {
       });
     }
 
-    if (isNew === null) {
+    if (isNew === '') {
       return toast.show({
         title: 'Informe o estado do seu produto.',
         placement: 'top',
@@ -182,7 +184,7 @@ export function CreateAd() {
       product_images: images,
       name,
       description,
-      is_new: isNew,
+      is_new: isNew === 'Produto novo',
       price: rawPrice,
       accept_trade: acceptTrade,
       payment_methods: paymentMethods,
@@ -197,8 +199,8 @@ export function CreateAd() {
       setImages(params.product_images);
       setName(params.name);
       setDescription(params.description);
-      setIsNew(params.is_new);
-      setPrice(toMaskedPrice(String(params.price / 100)));
+      setIsNew(params.is_new ? 'Produto novo' : 'Produto usado');
+      setPrice(toMaskedPrice(String(params.price)));
       setAcceptTrade(params.accept_trade);
       setPaymentMethods(params.payment_methods);
       setIsActive(params?.is_active ?? true);
@@ -314,8 +316,9 @@ export function CreateAd() {
           data={['Produto novo', 'Produto usado']}
           name='Estado do produto'
           accessibilityLabel='Escolha o estado do produto'
+          value={isNew}
           onChange={(newValue) => {
-            setIsNew(newValue === 'Produto novo');
+            setIsNew(newValue);
           }}
         />
 
@@ -364,6 +367,7 @@ export function CreateAd() {
         </Text>
         <Checkbox
           value='boleto'
+          isChecked={findPaymentMethod('boleto')}
           onChange={() => {
             handlePaymentMethods('boleto');
           }}
@@ -371,6 +375,7 @@ export function CreateAd() {
         />
         <Checkbox
           value='pix'
+          isChecked={findPaymentMethod('pix')}
           onChange={() => {
             handlePaymentMethods('pix');
           }}
@@ -378,6 +383,7 @@ export function CreateAd() {
         />
         <Checkbox
           value='cash'
+          isChecked={findPaymentMethod('cash')}
           onChange={() => {
             handlePaymentMethods('cash');
           }}
@@ -385,6 +391,7 @@ export function CreateAd() {
         />
         <Checkbox
           value='card'
+          isChecked={findPaymentMethod('card')}
           onChange={() => {
             handlePaymentMethods('card');
           }}
@@ -392,6 +399,7 @@ export function CreateAd() {
         />
         <Checkbox
           value='deposit'
+          isChecked={findPaymentMethod('deposit')}
           onChange={() => {
             handlePaymentMethods('deposit');
           }}
