@@ -9,12 +9,14 @@ import { useState } from 'react';
 import { AppError } from '@utils/AppError';
 import { IPhoto } from 'src/interfaces/IPhoto';
 import { IProduct } from 'src/interfaces/IProduct';
+import { useAuth } from '@hooks/useAuth';
 
 export function PreviewAd() {
   const { colors, sizes } = useTheme();
   const { navigate, goBack } = useNavigation<AppNavigatorRoutesProps>();
   const route = useRoute();
   const toast = useToast();
+  const { fetchUserProducts } = useAuth();
 
   const params = route.params as IProduct & { imagesToDelete: string[] };
 
@@ -49,6 +51,8 @@ export function PreviewAd() {
           'Content-Type': 'multipart/form-data',
         },
       });
+
+      await fetchUserProducts();
 
       navigate('adDetails', { id: data.id });
     } catch (error) {
@@ -109,6 +113,7 @@ export function PreviewAd() {
         });
       }
 
+      await fetchUserProducts();
       navigate('adDetails', { id: params.id as string });
     } catch (error) {
       const isAppError = error instanceof AppError;
