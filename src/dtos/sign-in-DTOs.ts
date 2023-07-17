@@ -4,9 +4,13 @@ export interface SignInRequestDTO {
 }
 
 export interface SignInResponseDTO {
-  id: string;
-  avatar: string;
-  name: string;
-  email: string;
-  tel: string;
+  user: {
+    id: string;
+    avatar: string;
+    name: string;
+    email: string;
+    tel: string;
+  };
+  token: string;
+  refresh_token: string;
 }
