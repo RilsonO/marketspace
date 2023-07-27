@@ -1,8 +1,7 @@
-import { UserDTO } from '@dtos/UserDTO';
-import { IPhoto } from './IPhoto';
-import { IPaymentMethods } from './IPaymentMethods';
+import { IPhoto } from './photo.interface';
+import { IPaymentMethods } from './payment-methods.interface';
 
-export interface IProduct {
+export interface IUserProduct {
   id?: string;
   name: string;
   description: string;
@@ -13,5 +12,4 @@ export interface IProduct {
   product_images: IPhoto[];
   is_active?: boolean;
   user_id?: string;
-  user: UserDTO;
 }
