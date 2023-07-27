@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { UserPhoto } from '@components/UserPhoto';
+import { UserPhoto } from '@views/components/UserPhoto';
 import {
   Center,
   Divider,
@@ -16,7 +16,7 @@ import {
   VStack,
 } from 'native-base';
 import defaultUserPhotoImg from '@assets/userPhotoDefault.png';
-import { Button } from '@components/Button';
+import { Button } from '@views/components/Button';
 import {
   Plus,
   Tag,
@@ -25,32 +25,31 @@ import {
   Faders,
   X,
 } from 'phosphor-react-native';
-import { Input } from '@components/Input';
-import { Ads } from '@components/Ads';
+import { Input } from '@views/components/Input';
+import { Ads } from '@views/components/Ads';
 import { Modalize } from 'react-native-modalize';
 import { Dimensions } from 'react-native';
 import { Portal } from 'react-native-portalize';
-import { TagButton } from '@components/TagButton';
-import { Checkbox } from '@components/Checkbox';
-import { useAuth } from '@hooks/useAuth';
-import { api } from '@services/api';
+import { TagButton } from '@views/components/TagButton';
+import { Checkbox } from '@views/components/Checkbox';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
-import { AppError } from '@utils/AppError';
-import { HomeTabsNavigatorRoutesProps } from '@routes/home.tabs.routes';
-import { ProductDTO } from '@dtos/ProductDTO';
-import { ProductMap } from '@mappers/ProductMap';
-import { IProduct } from 'src/interfaces/IProduct';
-import { IPaymentMethods } from 'src/interfaces/IPaymentMethods';
-import { Loading } from '@components/Loading';
+import { AppError } from '@utils/AppError.util';
+import { HomeTabsNavigatorRoutesProps } from '@routes/home-tabs.routes';
+import { ProductMap } from '@mappers/product.map';
+import { IProduct } from 'src/interfaces/product.interface';
+import { IPaymentMethods } from 'src/interfaces/payment-methods.interface';
+import { Loading } from '@views/components/Loading';
+import { useAuthViewModel } from '@hooks/use-auth.hook';
+import { client } from '@infra/http/client.http';
+import { ProductDTO } from '@dtos/product.dtos';
 
 const PHOTO_SIZE = 12;
 const { height } = Dimensions.get('screen');
 
 export function Home() {
   const { colors, sizes } = useTheme();
-  const { user, userProducts, updateUserProfile, fetchUserProducts } =
-    useAuth();
+  const { user } = useAuthViewModel();
   const toast = useToast();
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
   const { navigate: navigateTabs } =
@@ -76,7 +75,8 @@ export function Home() {
   }
 
   function handleOpenCreateAd() {
-    navigate('createAd');
+    // navigate('createAd');
+    console.log(user);
   }
 
   function handleNavigateToMyAds() {
@@ -84,7 +84,7 @@ export function Home() {
   }
 
   function countActiveAds() {
-    let activeAds = userProducts.map((item) => item.is_active === true);
+    let activeAds = user.products.map((item) => item.is_active === true);
     return activeAds.length;
   }
 
@@ -135,8 +135,9 @@ export function Home() {
         filter += `&payment_methods=${JSON.stringify(paymentMethods)}`;
       }
       console.log('filtro:', filter);
-
-      const { data } = await api.get(`/products${filter}`);
+      // ProductResponseDTO
+      // ProductRequestDTO
+      const { data } = await client.get(`/products${filter}`);
       setData(data.map((item: ProductDTO) => ProductMap.toIProduct(item)));
     } catch (error) {
       const isAppError = error instanceof AppError;
@@ -158,9 +159,8 @@ export function Home() {
     try {
       setIsFetchLoading(true);
 
-      await updateUserProfile();
-
-      await fetchUserProducts();
+      await user.updateProfile();
+      await user.fetchProducts();
     } catch (error) {
       const isAppError = error instanceof AppError;
       const title = isAppError
@@ -200,7 +200,7 @@ export function Home() {
           />
         ) : (
           <UserPhoto
-            source={{ uri: `${api.defaults.baseURL}/images/${user.avatar}` }}
+            source={{ uri: `${client.defaults.baseURL}/images/${user.avatar}` }}
             alt='Foto do usuário'
             borderWidth={2}
             size={PHOTO_SIZE}
@@ -229,7 +229,7 @@ export function Home() {
         Seus produtos anunciados para venda
       </Text>
 
-      {isFetchLoading && userProducts.length <= 0 ? (
+      {isFetchLoading && user.products?.length <= 0 ? (
         <Skeleton
           w='full'
           h={16}
