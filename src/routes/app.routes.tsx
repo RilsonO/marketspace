@@ -1,12 +1,12 @@
-import { CreateAd } from '@screens/CreateAd';
-import { PreviewAd } from '@screens/PreviewAd';
-import { AdDetails } from '@screens/AdDetails';
-import { IProduct } from 'src/interfaces/IProduct';
+import { CreateAd } from '@views/screens/CreateAd';
+import { PreviewAd } from '@views/screens/PreviewAd';
+import { AdDetails } from '@views/screens/AdDetails';
+import { IProduct } from 'src/interfaces/product.interface';
 import {
   NativeStackNavigationProp,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
-import { HomeTabsRoutes } from './home.tabs.routes';
+import { HomeTabsRoutes } from './home-tabs.routes';
 
 type AppRoutes = {
   homeTabs: undefined;

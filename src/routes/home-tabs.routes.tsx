@@ -5,9 +5,9 @@ import {
 import { House, Tag, SignOut } from 'phosphor-react-native';
 import { useTheme, Pressable } from 'native-base';
 import { Platform } from 'react-native';
-import { Home } from '@screens/Home';
-import { MyAds } from '@screens/MyAds';
-import { useAuth } from '@hooks/useAuth';
+import { Home } from '@views/screens/Home';
+import { MyAds } from '@views/screens/MyAds';
+import { useAuthViewModel } from '@hooks/use-auth.hook';
 
 type HomeTabsRoutes = {
   home: undefined;
@@ -22,13 +22,21 @@ const { Navigator, Screen } = createBottomTabNavigator<HomeTabsRoutes>();
 
 export function HomeTabsRoutes() {
   const { sizes, colors } = useTheme();
-  const { signOut } = useAuth();
+  const { user } = useAuthViewModel();
 
   const iconSize = sizes[6];
 
   const LogOutFakeScreen = () => {
     return null;
   };
+
+  async function handleLogOut() {
+    try {
+      await user.signOut();
+    } catch (error) {
+      console.log('[handleLogOut] Error =>', error);
+    }
+  }
 
   return (
     <Navigator
@@ -67,7 +75,7 @@ export function HomeTabsRoutes() {
         component={LogOutFakeScreen}
         options={{
           tabBarIcon: () => (
-            <Pressable onPress={signOut}>
+            <Pressable onPress={handleLogOut}>
               <SignOut color={colors.red[400]} size={iconSize} />
             </Pressable>
           ),
