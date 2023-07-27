@@ -1,7 +1,7 @@
-import { Ads } from '@components/Ads';
-import { useAuth } from '@hooks/useAuth';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { AppNavigatorRoutesProps } from '@routes/app.routes';
+// import { Ads } from '@components/Ads';
+// import { useAuth } from '@hooks/useAuthViewModel';
+// import { useFocusEffect, useNavigation } from '@react-navigation/native';
+// import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import {
   Center,
   HStack,
@@ -14,38 +14,38 @@ import {
   HamburgerIcon,
   FlatList,
 } from 'native-base';
-import { CaretDown, CaretUp, Plus } from 'phosphor-react-native';
-import { useCallback, useEffect, useState } from 'react';
-import { IProduct } from 'src/interfaces/IProduct';
+// import { CaretDown, CaretUp, Plus } from 'phosphor-react-native';
+// import { useCallback, useEffect, useState } from 'react';
+// import { IProduct } from 'src/interfaces/IProduct';
 
 export function MyAds() {
   const { colors, sizes } = useTheme();
-  const { userProducts } = useAuth();
-  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
+  // const { userProducts } = useAuth();
+  // const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 
-  const [filter, setFilter] = useState('Todos');
-  const [filterIsOpened, setFilterIsOpened] = useState(false);
-  const [data, setData] = useState<IProduct[]>([] as IProduct[]);
+  // const [filter, setFilter] = useState('Todos');
+  // const [filterIsOpened, setFilterIsOpened] = useState(false);
+  // const [data, setData] = useState<IProduct[]>([] as IProduct[]);
 
-  function handleOpenCreateAd() {
-    navigate('createAd');
-  }
+  // function handleOpenCreateAd() {
+  //   navigate('createAd');
+  // }
 
-  useEffect(() => {
-    if (filter === 'Todos') {
-      setData(userProducts);
-    }
-    if (filter === 'Ativos') {
-      setData(userProducts.filter((product) => product.is_active === true));
-    }
-    if (filter === 'Inativos') {
-      setData(userProducts.filter((product) => product.is_active === false));
-    }
-  }, [filter, userProducts]);
+  // useEffect(() => {
+  //   if (filter === 'Todos') {
+  //     setData(userProducts);
+  //   }
+  //   if (filter === 'Ativos') {
+  //     setData(userProducts.filter((product) => product.is_active === true));
+  //   }
+  //   if (filter === 'Inativos') {
+  //     setData(userProducts.filter((product) => product.is_active === false));
+  //   }
+  // }, [filter, userProducts]);
 
   return (
     <VStack flex={1} px='6' safeAreaTop>
-      <HStack alignItems='center' justifyContent='center' mt='2' mb='4'>
+      {/* <HStack alignItems='center' justifyContent='center' mt='2' mb='4'>
         <Text fontFamily='bold' fontSize='lg+' color='gray.700'>
           Meus anúncios
         </Text>
@@ -140,7 +140,7 @@ export function MyAds() {
           justifyContent: 'space-between',
         }}
         showsVerticalScrollIndicator={false}
-      />
+      /> */}
     </VStack>
   );
 }
