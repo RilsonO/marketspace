@@ -9,9 +9,9 @@ import {
   Money,
   QrCode,
 } from 'phosphor-react-native';
-import { IProduct } from 'src/interfaces/IProduct';
-import { toMaskedPrice } from '@utils/Masks';
-import { IPaymentMethods } from 'src/interfaces/IPaymentMethods';
+import { IProduct } from 'src/interfaces/product.interface';
+import { toMaskedPrice } from '@utils/Masks.util';
+import { IPaymentMethods } from 'src/interfaces/payment-methods.interface';
 
 const PHOTO_SIZE = 6;
 

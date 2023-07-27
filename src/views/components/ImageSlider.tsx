@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { ViewToken, Dimensions } from 'react-native';
 import { ImageIndicator } from './ImageIndicator';
 import { Box, FlatList, HStack, Image, Text, VStack } from 'native-base';
-import { IPhoto } from 'src/interfaces/IPhoto';
+import { IPhoto } from 'src/interfaces/photo.interface';
 
 const { width: WIDTH } = Dimensions.get('screen');
 

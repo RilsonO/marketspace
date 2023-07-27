@@ -12,11 +12,11 @@ import { Dimensions } from 'react-native';
 import { UserPhoto } from './UserPhoto';
 import defaultUserPhotoImg from '@assets/userPhotoDefault.png';
 import { useState } from 'react';
-import { IProduct } from 'src/interfaces/IProduct';
-import { api } from '@services/api';
-import { toMaskedPrice } from '@utils/Masks';
+import { IProduct } from 'src/interfaces/product.interface';
+import { toMaskedPrice } from '@utils/Masks.util';
 import { useNavigation } from '@react-navigation/native';
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
+import { client } from '@infra/http/client.http';
 
 const { width } = Dimensions.get('screen');
 const MARGIN_BETWEEN = 32;
@@ -99,7 +99,9 @@ export function Ads({
                   source={
                     !user.avatar
                       ? defaultUserPhotoImg
-                      : { uri: `${api.defaults.baseURL}/images/${user.avatar}` }
+                      : {
+                          uri: `${client.defaults.baseURL}/images/${user.avatar}`,
+                        }
                   }
                   alt='Foto do usuário'
                   borderWidth={1}
