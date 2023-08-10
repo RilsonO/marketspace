@@ -28,3 +28,7 @@ export interface ProductDetailDTO extends UserProductResponseDTO {
     tel: string;
   };
 }
+
+export interface ProductsRequestDTO {
+  filter: string;
+}
