@@ -1,4 +1,4 @@
-import { UserDTO } from '@dtos/UserDTO';
+import { UpdateProfileResponseDTO } from '@dtos/update-profile.dtos';
 import { IPhoto } from './photo.interface';
 import { IPaymentMethods } from './payment-methods.interface';
 
@@ -13,5 +13,5 @@ export interface IProduct {
   product_images: IPhoto[];
   is_active?: boolean;
   user_id?: string;
-  user: UserDTO;
+  user: UpdateProfileResponseDTO;
 }
