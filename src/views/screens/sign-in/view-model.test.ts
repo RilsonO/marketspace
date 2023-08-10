@@ -2,9 +2,8 @@ import { renderHook, act, waitFor } from '@testing-library/react-native';
 import { useSignInViewModel } from './view-model';
 import { useAuthViewModel } from '@hooks/use-auth.hook';
 import { useToast } from 'native-base';
-import { UserModel } from 'src/models/user.model';
-import { AuthContextDataProps } from '@view-models/auth.view-model';
 import { AppError } from '@utils/AppError.util';
+import * as navigationModule from '@react-navigation/native';
 
 jest.mock('@hooks/use-auth.hook');
 jest.mock('native-base');
@@ -13,8 +12,6 @@ const mockSignInUser = jest.fn();
 
 describe('SignIn view-model [useSignInViewModel]', () => {
   beforeEach(() => {
-    console.log('beforeEach is called');
-
     jest.clearAllMocks();
   });
 
@@ -27,11 +24,9 @@ describe('SignIn view-model [useSignInViewModel]', () => {
 
   it('should call handleNewAccount and navigate to sign up', async () => {
     const navigateMock = jest.fn();
-    jest
-      .spyOn(require('@react-navigation/native'), 'useNavigation')
-      .mockReturnValue({
-        navigate: navigateMock,
-      });
+    jest.spyOn(navigationModule, 'useNavigation').mockReturnValue({
+      navigate: navigateMock,
+    });
 
     const { result } = renderHook(() => useSignInViewModel());
 
@@ -52,13 +47,17 @@ describe('SignIn view-model [useSignInViewModel]', () => {
       result.current.handlePasswordSecureTextEntry();
     });
 
-    expect(result.current.passwordSecureTextEntry).toBe(false);
+    await waitFor(() =>
+      expect(result.current.passwordSecureTextEntry).toBe(false)
+    );
 
     await act(() => {
       result.current.handlePasswordSecureTextEntry();
     });
 
-    expect(result.current.passwordSecureTextEntry).toBe(true);
+    await waitFor(() =>
+      expect(result.current.passwordSecureTextEntry).toBe(true)
+    );
   });
 
   it('should call signInUser on handleSignIn and set isLoading to true', async () => {
@@ -101,7 +100,7 @@ describe('SignIn view-model [useSignInViewModel]', () => {
     };
 
     await act(async () => {
-      await result.current.handleSignIn(formData);
+      await waitFor(() => result.current.handleSignIn(formData));
     });
 
     expect(result.current.isLoading).toBe(false);
