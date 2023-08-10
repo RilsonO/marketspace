@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react-native';
+import { render, renderHook } from '@testing-library/react-native';
 import { SignIn } from './view';
 import { THEME } from '../../../theme';
 import {
@@ -9,7 +9,6 @@ import {
 } from 'react-hook-form';
 import * as yup from 'yup';
 import { SignInViewModel, useSignInViewModel } from './view-model';
-import { renderHook } from '@testing-library/react-native';
 import { NativeBaseProvider } from 'native-base';
 
 jest.mock('./view-model');
@@ -24,7 +23,7 @@ const signInSchema = yup.object({
 type FormDataProps = yup.InferType<typeof signInSchema>;
 
 interface CreateMockSignInView {
-  control: Control<FormDataProps, any>;
+  control: Control<FormDataProps>;
   handleSubmit: UseFormHandleSubmit<FormDataProps>;
   errors: FieldErrors<FormDataProps>;
   isLoading: boolean;
@@ -97,6 +96,10 @@ function makeSut({
 }
 
 describe('SignIn view', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should render correctly', () => {
     const { toJSON } = makeSut({});
 

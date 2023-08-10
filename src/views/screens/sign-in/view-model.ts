@@ -8,12 +8,9 @@ import * as yup from 'yup';
 import { useToast } from 'native-base';
 import {
   Control,
-  FieldError,
   FieldErrors,
   useForm,
   UseFormHandleSubmit,
-  UseFormProps,
-  UseFormReturn,
 } from 'react-hook-form';
 
 const signInSchema = yup.object({
@@ -24,11 +21,12 @@ const signInSchema = yup.object({
 type FormDataProps = yup.InferType<typeof signInSchema>;
 
 export interface SignInViewModel {
-  control: Control<FormDataProps, any>;
+  control: Control<FormDataProps>;
   handleSubmit: UseFormHandleSubmit<FormDataProps>;
   errors: FieldErrors<FormDataProps>;
   isLoading: boolean;
   passwordSecureTextEntry: boolean;
+  // eslint-disable-next-line no-unused-vars
   handleSignIn: ({ password, email }: FormDataProps) => Promise<void>;
   handleNewAccount: () => void;
   handlePasswordSecureTextEntry: () => void;
