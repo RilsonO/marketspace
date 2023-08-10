@@ -4,35 +4,23 @@ import { UpdateProfileResponseDTO } from '@dtos/update-profile.dtos';
 import { UserProductResponseDTO } from '@dtos/product.dtos';
 
 async function signIn({ email, password }: SignInRequestDTO) {
-  try {
-    const { data } = await client.post<SignInResponseDTO>('/sessions', {
-      email,
-      password,
-    });
-    return data;
-  } catch (error) {
-    throw error;
-  }
+  const { data } = await client.post<SignInResponseDTO>('/sessions', {
+    email,
+    password,
+  });
+  return data;
 }
 
 async function updateProfile() {
-  try {
-    const { data } = await client.get<UpdateProfileResponseDTO>('/users/me');
-    return data;
-  } catch (error) {
-    throw error;
-  }
+  const { data } = await client.get<UpdateProfileResponseDTO>('/users/me');
+  return data;
 }
 
 async function fetchProducts() {
-  try {
-    const { data } = await client.get<UserProductResponseDTO[]>(
-      '/users/products'
-    );
-    return data;
-  } catch (error) {
-    throw error;
-  }
+  const { data } = await client.get<UserProductResponseDTO[]>(
+    '/users/products'
+  );
+  return data;
 }
 
 export { signIn, updateProfile, fetchProducts };
