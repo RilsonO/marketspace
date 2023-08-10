@@ -5,7 +5,7 @@ import {
 import { House, Tag, SignOut } from 'phosphor-react-native';
 import { useTheme, Pressable } from 'native-base';
 import { Platform } from 'react-native';
-import { Home } from '@views/screens/Home';
+import { Home } from '@views/screens/home/view';
 import { MyAds } from '@views/screens/MyAds';
 import { useAuthViewModel } from '@hooks/use-auth.hook';
 
