@@ -1,7 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
 import { UserPhoto } from '@views/components/UserPhoto';
 import {
-  Center,
   Divider,
   FlatList,
   Flex,
@@ -11,11 +9,8 @@ import {
   Switch,
   Text,
   useTheme,
-  useToast,
-  View,
   VStack,
 } from 'native-base';
-import defaultUserPhotoImg from '@assets/userPhotoDefault.png';
 import { Button } from '@views/components/Button';
 import {
   Plus,
@@ -32,150 +27,40 @@ import { Dimensions } from 'react-native';
 import { Portal } from 'react-native-portalize';
 import { TagButton } from '@views/components/TagButton';
 import { Checkbox } from '@views/components/Checkbox';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { AppNavigatorRoutesProps } from '@routes/app.routes';
-import { AppError } from '@utils/AppError.util';
-import { HomeTabsNavigatorRoutesProps } from '@routes/home-tabs.routes';
-import { ProductMap } from '@mappers/product.map';
-import { IProduct } from 'src/interfaces/product.interface';
-import { IPaymentMethods } from 'src/interfaces/payment-methods.interface';
 import { Loading } from '@views/components/Loading';
-import { useAuthViewModel } from '@hooks/use-auth.hook';
 import { client } from '@infra/http/client.http';
-import { ProductDTO } from '@dtos/product.dtos';
+import { useHomeViewModel } from './view-model';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback, useEffect } from 'react';
 
 const PHOTO_SIZE = 12;
 const { height } = Dimensions.get('screen');
 
 export function Home() {
   const { colors, sizes } = useTheme();
-  const { user } = useAuthViewModel();
-  const toast = useToast();
-  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
-  const { navigate: navigateTabs } =
-    useNavigation<HomeTabsNavigatorRoutesProps>();
-
-  const modalizeRef = useRef<Modalize>(null);
-
-  const [data, setData] = useState<IProduct[]>([] as IProduct[]);
-  const [paymentMethods, setPaymentMethods] = useState<IPaymentMethods[]>([]);
-  const [acceptTrade, setAcceptTrade] = useState<boolean | null>(null);
-  const [isNew, setIsNew] = useState<boolean | null>(null);
-  const [search, setSearch] = useState('');
-  const [isFetchLoading, setIsFetchLoading] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
-  const [photoIsLoading, setPhotoIsLoading] = useState(false);
-
-  function handleOpenModalize() {
-    modalizeRef.current?.open();
-  }
-
-  function handleCloseModalize() {
-    modalizeRef.current?.close();
-  }
-
-  function handleOpenCreateAd() {
-    // navigate('createAd');
-    console.log(user);
-  }
-
-  function handleNavigateToMyAds() {
-    navigateTabs('myAds');
-  }
-
-  function countActiveAds() {
-    let activeAds = user.products.map((item) => item.is_active === true);
-    return activeAds.length;
-  }
-
-  function findPaymentMethod(payment_method: IPaymentMethods) {
-    return paymentMethods.includes(payment_method);
-  }
-
-  function handlePaymentMethods(payment_method: IPaymentMethods) {
-    const existMethod = findPaymentMethod(payment_method);
-
-    if (existMethod) {
-      setPaymentMethods((prev) =>
-        prev.filter((item) => item !== payment_method)
-      );
-    } else {
-      setPaymentMethods((prev) => [...prev, payment_method]);
-    }
-  }
-
-  function handleResetFilters() {
-    setPaymentMethods([]);
-    setIsNew(null);
-    setAcceptTrade(null);
-  }
-
-  function handleIsNew(value: boolean) {
-    if (isNew !== value) {
-      setIsNew(value);
-    } else {
-      setIsNew(null);
-    }
-  }
-
-  async function fetchFilteredProducts() {
-    try {
-      handleCloseModalize();
-
-      setIsLoading(true);
-      let filter = `?query=${search}`;
-
-      if (isNew !== null) {
-        filter += `&is_new=${isNew}`;
-      }
-      if (acceptTrade !== null) {
-        filter += `&accept_trade=${acceptTrade}`;
-      }
-      if (paymentMethods.length > 0) {
-        filter += `&payment_methods=${JSON.stringify(paymentMethods)}`;
-      }
-      console.log('filtro:', filter);
-      // ProductResponseDTO
-      // ProductRequestDTO
-      const { data } = await client.get(`/products${filter}`);
-      setData(data.map((item: ProductDTO) => ProductMap.toIProduct(item)));
-    } catch (error) {
-      const isAppError = error instanceof AppError;
-      const title = isAppError
-        ? error.message
-        : 'Não foi possível carregar o anúncio. Tente novamente mais tarde.';
-
-      toast.show({
-        title,
-        placement: 'top',
-        bgColor: 'red.500',
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  async function fetchUserData() {
-    try {
-      setIsFetchLoading(true);
-
-      await user.updateProfile();
-      await user.fetchProducts();
-    } catch (error) {
-      const isAppError = error instanceof AppError;
-      const title = isAppError
-        ? error.message
-        : 'Não foi possível atualizar seus dados. Tente novamente mais tarde.';
-
-      toast.show({
-        title,
-        placement: 'top',
-        bgColor: 'red.500',
-      });
-    } finally {
-      setIsFetchLoading(false);
-    }
-  }
+  const {
+    user,
+    isFetchLoading,
+    search,
+    isLoading,
+    data,
+    modalizeRef,
+    isNew,
+    acceptTrade,
+    handleOpenCreateAd,
+    handleNavigateToMyAds,
+    countActiveAds,
+    fetchFilteredProducts,
+    handleOpenModalize,
+    handleCloseModalize,
+    handleIsNew,
+    findPaymentMethod,
+    handlePaymentMethods,
+    handleResetFilters,
+    onChangeSearch,
+    onToggleAcceptTrade,
+    fetchUserData,
+  } = useHomeViewModel();
 
   useFocusEffect(
     useCallback(() => {
@@ -190,8 +75,9 @@ export function Home() {
   return (
     <VStack flex={1} px='6' safeAreaTop>
       <HStack w='full' mt='2'>
-        {photoIsLoading ? (
+        {!user.avatar ? (
           <Skeleton
+            testID='user-photo-skeleton'
             w={PHOTO_SIZE}
             h={PHOTO_SIZE}
             rounded='full'
@@ -200,6 +86,7 @@ export function Home() {
           />
         ) : (
           <UserPhoto
+            testID='user-photo'
             source={{ uri: `${client.defaults.baseURL}/images/${user.avatar}` }}
             alt='Foto do usuário'
             borderWidth={2}
@@ -211,6 +98,7 @@ export function Home() {
           <Text color='gray.700' fontSize='md' fontFamily='regular'>
             Boas vindas,
           </Text>
+
           <Text color='gray.700' fontSize='md' fontFamily='bold'>
             {user.name}
           </Text>
@@ -279,7 +167,7 @@ export function Home() {
         autoComplete='off'
         autoCorrect={false}
         value={search}
-        onChangeText={setSearch}
+        onChangeText={onChangeSearch}
         onSubmitEditing={fetchFilteredProducts}
         returnKeyType='search'
         InputRightElement={
@@ -399,7 +287,7 @@ export function Home() {
               offTrackColor='gray.300'
               onTrackColor='blue.400'
               isChecked={acceptTrade === null ? false : acceptTrade}
-              onToggle={setAcceptTrade}
+              onToggle={onToggleAcceptTrade}
             />
 
             <Text
