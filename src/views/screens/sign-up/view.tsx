@@ -10,162 +10,36 @@ import {
   Skeleton,
   useTheme,
   Button as NativeButton,
-  useToast,
 } from 'native-base';
-import { useNavigation } from '@react-navigation/native';
-import { useForm, Controller } from 'react-hook-form';
-import * as yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
 import LogoSvg from '@assets/logo.svg';
-// import { Input } from '@components/Input';
-// import { Button } from '@components/Button';
-// import { useState } from 'react';
-// import { UserPhoto } from '@components/UserPhoto';
-// import defaultUserPhotoImg from '@assets/userPhotoDefault.png';
-// import { PencilSimpleLine, Eye, EyeSlash } from 'phosphor-react-native';
-// import { toMaskedPhone } from '@utils/Masks';
-// import * as ImagePicker from 'expo-image-picker';
-// import * as FileSystem from 'expo-file-system';
-// import { AppError } from '@utils/AppError';
-// import uuid from 'react-native-uuid';
-// import { api } from '@services/api';
-// import { useAuth } from '@hooks/useAuthViewModel';
-
-const signInSchema = yup.object({
-  name: yup.string().required('Informe o nome.'),
-  phone: yup
-    .string()
-    .required('Informe o telefone.')
-    .min(14, 'Infome um telefone válido'),
-  email: yup.string().required('Informe o email.').email('E-mail inválido.'),
-  password: yup
-    .string()
-    .required('Informe a senha.')
-    .min(6, 'A senha deve ter pelo menos 6 dígitos.'),
-  password_confirm: yup
-    .string()
-    .required('Confirme a senha.')
-    .oneOf([yup.ref('password')], 'A confirmação da senha não confere.'),
-});
-
-type FormDataProps = yup.InferType<typeof signInSchema>;
-
-type PhotoProps = {
-  name: string;
-  uri: string;
-  type: string;
-};
+import { useSignUpViewModel } from './view-model';
+import { UserPhoto } from '@views/components/UserPhoto';
+import defaultUserPhotoImg from '@assets/userPhotoDefault.png';
+import { Eye, EyeSlash, PencilSimpleLine } from 'phosphor-react-native';
+import { Controller } from 'react-hook-form';
+import { Button } from '@views/components/Button';
+import { Input } from '@views/components/Input';
+import { toMaskedPhone } from '@utils/Masks.util';
 
 const PHOTO_SIZE = 22;
 
 export function SignUp() {
-  const navigation = useNavigation();
   const { colors, sizes } = useTheme();
-  const toast = useToast();
   const {
     control,
+    errors,
+    isLoading,
+    photoIsLoading,
+    photo,
+    passwordSecureTextEntry,
+    passwordConfirmSecureTextEntry,
     handleSubmit,
-    formState: { errors },
-  } = useForm<FormDataProps>({
-    resolver: yupResolver(signInSchema),
-  });
-
-  // const { signIn } = useAuth();
-
-  // const [photo, setPhoto] = useState<PhotoProps>({} as PhotoProps);
-  // const [photoIsLoading, setPhotoIsLoading] = useState(false);
-  // const [passwordSecureTextEntry, setPasswordSecureTextEntry] = useState(true);
-  // const [passwordConfirmSecureTextEntry, setPasswordConfirmSecureTextEntry] =
-  //   useState(true);
-  // const [isLoading, setIsLoading] = useState(false);
-
-  // function handleGoBack() {
-  //   navigation.goBack();
-  // }
-
-  // async function handleSignUp({ name, password, email, phone }: FormDataProps) {
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append('name', name);
-  //     formData.append('email', email);
-  //     formData.append('tel', phone);
-  //     formData.append('password', password);
-  //     if (!!photo.uri) {
-  //       formData.append('avatar', photo as any);
-  //     }
-  //     setIsLoading(true);
-  //     await api.post('/users', formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     });
-  //     await signIn(email, password);
-  //   } catch (error) {
-  //     const isAppError = error instanceof AppError;
-  //     const title = isAppError
-  //       ? error.message
-  //       : 'Não foi possível criar a conta. Tente novamente mais tarde.';
-
-  //     toast.show({
-  //       title,
-  //       placement: 'top',
-  //       bgColor: 'red.500',
-  //     });
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
-
-  // async function handleUserPhotoSelect() {
-  //   setPhotoIsLoading(true);
-  //   try {
-  //     const photoSelected = await ImagePicker.launchImageLibraryAsync({
-  //       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-  //       quality: 1,
-  //       aspect: [4, 4],
-  //       allowsEditing: true,
-  //     });
-
-  //     if (photoSelected.canceled) return;
-
-  //     if (photoSelected.assets[0].uri) {
-  //       const photoInfo = (await FileSystem.getInfoAsync(
-  //         photoSelected.assets[0].uri
-  //       )) as FileSystem.FileInfo & { size?: number };
-
-  //       if (photoInfo.size && photoInfo.size / 1024 / 1024 > 5) {
-  //         setPhoto({} as PhotoProps);
-  //         return toast.show({
-  //           title: 'Essa Imagem é muito grande. Escolha uma de até 5MB',
-  //           placement: 'top',
-  //           bgColor: 'red.500',
-  //         });
-  //       }
-
-  //       const fileExtension = photoSelected.assets[0].uri.split('.').pop();
-
-  //       const photoFile = {
-  //         name: `${String(uuid.v4())}.${fileExtension}`.toLowerCase(),
-  //         uri: photoSelected.assets[0].uri,
-  //         type: `${photoSelected.assets[0].type}/${fileExtension}`,
-  //       } as any;
-
-  //       setPhoto(photoFile);
-  //     }
-  //   } catch (error) {
-  //     const isAppError = error instanceof AppError;
-  //     const title = isAppError
-  //       ? error.message
-  //       : 'Não foi possível utilizar a foto. Tente novamente mais tarde.';
-  //     toast.show({
-  //       title,
-  //       placement: 'top',
-  //       bgColor: 'red.500',
-  //     });
-  //   } finally {
-  //     setPhotoIsLoading(false);
-  //   }
-  // }
+    handleUserPhotoSelect,
+    handleSignUp,
+    handleGoBack,
+    handlePasswordSecureTextEntry,
+    handlePasswordConfirmSecureTextEntry,
+  } = useSignUpViewModel();
 
   return (
     <KeyboardAvoidingView
@@ -195,7 +69,7 @@ export function SignUp() {
             </Text>
           </Center>
 
-          {/* <Center flex={1}>
+          <Center flex={1}>
             <Box mb={6}>
               {photoIsLoading ? (
                 <Skeleton
@@ -207,9 +81,7 @@ export function SignUp() {
                 />
               ) : (
                 <UserPhoto
-                  source={
-                    !!photo.uri ? { uri: photo.uri } : defaultUserPhotoImg
-                  }
+                  source={photo.uri ? { uri: photo.uri } : defaultUserPhotoImg}
                   alt='Foto do usuário'
                   size={PHOTO_SIZE}
                 />
@@ -290,9 +162,7 @@ export function SignUp() {
                   errorMessage={errors.password?.message}
                   InputRightElement={
                     <TouchableOpacity
-                      onPress={() =>
-                        setPasswordSecureTextEntry((prev) => !prev)
-                      }
+                      onPress={() => handlePasswordSecureTextEntry()}
                     >
                       {passwordSecureTextEntry ? (
                         <Eye
@@ -325,9 +195,7 @@ export function SignUp() {
                   errorMessage={errors.password_confirm?.message}
                   InputRightElement={
                     <TouchableOpacity
-                      onPress={() =>
-                        setPasswordConfirmSecureTextEntry((prev) => !prev)
-                      }
+                      onPress={() => handlePasswordConfirmSecureTextEntry()}
                     >
                       {passwordConfirmSecureTextEntry ? (
                         <Eye
@@ -349,6 +217,7 @@ export function SignUp() {
             />
 
             <Button
+              testID='create-button'
               mt={3}
               title='Criar'
               bgColor='gray.700'
@@ -362,11 +231,13 @@ export function SignUp() {
               Já tem uma conta?
             </Text>
             <Button
+              testID='back-button'
               title='Ir para o login'
               bgColor='gray.300'
               onPress={handleGoBack}
+              disabled={isLoading}
             />
-          </Center> */}
+          </Center>
         </VStack>
       </ScrollView>
     </KeyboardAvoidingView>
