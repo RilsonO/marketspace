@@ -1,4 +1,9 @@
-import { render, renderHook } from '@testing-library/react-native';
+import {
+  act,
+  fireEvent,
+  render,
+  renderHook,
+} from '@testing-library/react-native';
 import { SignIn } from './view';
 import { THEME } from '../../../theme';
 import {
@@ -61,7 +66,6 @@ function makeSut({
   password,
 }: FactoryProps) {
   const { result } = renderHook(() => useForm<FormDataProps>());
-  const handleSubmit = result.current.handleSubmit;
   const errors = result.current.formState.errors;
   const control = result.current.control;
 
@@ -73,11 +77,13 @@ function makeSut({
     control._defaultValues.password = password;
   }
 
+  const mockHandleSubmit = jest.fn();
+
   const mockLoginViewModel = createMockLoginViewModel({
     isLoading,
     passwordSecureTextEntry,
     control,
-    handleSubmit,
+    handleSubmit: mockHandleSubmit,
     errors,
   });
   (useSignInViewModel as jest.Mock).mockReturnValueOnce(mockLoginViewModel);
@@ -92,7 +98,7 @@ function makeSut({
     </NativeBaseProvider>
   );
 
-  return { ...sut, result };
+  return { ...sut, ...mockLoginViewModel, result };
 }
 
 describe('SignIn view', () => {
@@ -147,11 +153,35 @@ describe('SignIn view', () => {
       isLoading: true,
     });
 
-    const enterButton = await findByTestId('Enter-Button');
-    const createButton = await findByTestId('Create-Button');
+    const enterButton = await findByTestId('enter-button');
+    const createButton = await findByTestId('create-button');
 
     expect(enterButton.props.accessibilityState.disabled).toBeTruthy();
     expect(createButton.props.accessibilityState.disabled).toBeTruthy();
     expect(toJSON()).toMatchSnapshot();
+  });
+
+  it('should call handleSubmit when "Entrar" button is pressed', async () => {
+    const { findByTestId, handleSubmit, handleSignIn } = makeSut({});
+
+    const enterButton = await findByTestId('enter-button');
+
+    await act(() => {
+      fireEvent.press(enterButton);
+    });
+
+    expect(handleSubmit).toHaveBeenCalledWith(handleSignIn);
+  });
+
+  it('should call handleNewAccount when "Criar uma conta" button is pressed', async () => {
+    const { findByTestId, handleNewAccount } = makeSut({});
+
+    const createButton = await findByTestId('create-button');
+
+    await act(() => {
+      fireEvent.press(createButton);
+    });
+
+    expect(handleNewAccount).toHaveBeenCalled();
   });
 });

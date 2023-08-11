@@ -435,7 +435,7 @@ exports[`SignIn view should render buttons with prop \`disabled\` true 1`] = `
                     "width": "100%",
                   }
                 }
-                testID="Enter-Button"
+                testID="enter-button"
               >
                 <View
                   dataSet={{}}
@@ -556,7 +556,7 @@ exports[`SignIn view should render buttons with prop \`disabled\` true 1`] = `
                   "width": "100%",
                 }
               }
-              testID="Create-Button"
+              testID="create-button"
             >
               <View
                 dataSet={{}}
@@ -1035,7 +1035,7 @@ exports[`SignIn view should render correctly 1`] = `
                     "width": "100%",
                   }
                 }
-                testID="Enter-Button"
+                testID="enter-button"
               >
                 <View
                   dataSet={{}}
@@ -1160,7 +1160,7 @@ exports[`SignIn view should render correctly 1`] = `
                   "width": "100%",
                 }
               }
-              testID="Create-Button"
+              testID="create-button"
             >
               <View
                 dataSet={{}}
@@ -1640,7 +1640,7 @@ exports[`SignIn view should render correctly with email 1`] = `
                     "width": "100%",
                   }
                 }
-                testID="Enter-Button"
+                testID="enter-button"
               >
                 <View
                   dataSet={{}}
@@ -1765,7 +1765,7 @@ exports[`SignIn view should render correctly with email 1`] = `
                   "width": "100%",
                 }
               }
-              testID="Create-Button"
+              testID="create-button"
             >
               <View
                 dataSet={{}}
@@ -2245,7 +2245,7 @@ exports[`SignIn view should render correctly with password 1`] = `
                     "width": "100%",
                   }
                 }
-                testID="Enter-Button"
+                testID="enter-button"
               >
                 <View
                   dataSet={{}}
@@ -2370,7 +2370,7 @@ exports[`SignIn view should render correctly with password 1`] = `
                   "width": "100%",
                 }
               }
-              testID="Create-Button"
+              testID="create-button"
             >
               <View
                 dataSet={{}}
@@ -2916,7 +2916,7 @@ exports[`SignIn view should render correctly with password with secure text entr
                     "width": "100%",
                   }
                 }
-                testID="Enter-Button"
+                testID="enter-button"
               >
                 <View
                   dataSet={{}}
@@ -3041,7 +3041,7 @@ exports[`SignIn view should render correctly with password with secure text entr
                   "width": "100%",
                 }
               }
-              testID="Create-Button"
+              testID="create-button"
             >
               <View
                 dataSet={{}}
