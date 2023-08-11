@@ -1,4 +1,4 @@
-import { Children, createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 import {
   fetchProducts,
   signIn,
@@ -19,11 +19,11 @@ import { ProductMap } from '@mappers/product.map';
 
 import { UserModel } from 'src/models/user.model';
 import { UserMap } from '@mappers/user.map';
-import { IUserProduct } from 'src/interfaces/user-product.interface';
 import { UserProductResponseDTO } from '@dtos/product.dtos';
 
 export type AuthContextDataProps = {
   user: UserModel;
+  // eslint-disable-next-line no-unused-vars
   signInUser: (email: string, password: string) => Promise<void>;
   isLoading: boolean;
 };
@@ -56,30 +56,24 @@ function AuthContextProvider({ children }: AuthContextProviderProps) {
 
       await storageUserSave(userDataConverted);
       await storageAuthTokenSave({ token, refresh_token });
-    } catch (error) {
-      throw error;
     } finally {
       setIsLoading(false);
     }
   }
 
   async function signInUser(email: string, password: string) {
-    try {
-      const data = await signIn({ email, password });
+    const data = await signIn({ email, password });
 
-      if (data.user && data.token && data.refresh_token) {
-        const userData = UserMap.fromSignInResponseDTOToUserModel(
-          data,
-          signOut,
-          updateUserProfile,
-          fetchUserProducts
-        );
+    if (data.user && data.token && data.refresh_token) {
+      const userData = UserMap.fromSignInResponseDTOToUserModel(
+        data,
+        signOut,
+        updateUserProfile,
+        fetchUserProducts
+      );
 
-        await storageUserAndTokenSave(userData, data.token, data.refresh_token);
-        await userAndTokenUpdate(userData, data.token);
-      }
-    } catch (error) {
-      throw error;
+      await storageUserAndTokenSave(userData, data.token, data.refresh_token);
+      await userAndTokenUpdate(userData, data.token);
     }
   }
 
@@ -90,28 +84,22 @@ function AuthContextProvider({ children }: AuthContextProviderProps) {
       setUser({} as UserModel);
       await storageUserRemove();
       await storageAuthTokenRemove();
-    } catch (error) {
-      throw error;
     } finally {
       setIsLoading(false);
     }
   }
 
   async function updateUserProfile() {
-    try {
-      const data = await updateProfile();
-      setUser((prev) => {
-        return { ...data, ...prev };
-      });
+    const data = await updateProfile();
+    setUser((prev) => {
+      return { ...data, ...prev };
+    });
 
-      const userDataConverted = UserMap.fromUserModelToBaseUserModel({
-        ...data,
-        ...user,
-      });
-      await storageUserSave(userDataConverted);
-    } catch (error) {
-      throw error;
-    }
+    const userDataConverted = UserMap.fromUserModelToBaseUserModel({
+      ...data,
+      ...user,
+    });
+    await storageUserSave(userDataConverted);
   }
 
   async function fetchUserProducts() {
