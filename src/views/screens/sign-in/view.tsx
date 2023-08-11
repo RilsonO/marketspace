@@ -105,7 +105,7 @@ export function SignIn() {
               />
 
               <Button
-                testID='Enter-Button'
+                testID='enter-button'
                 title='Entrar'
                 bgColor='blue.400'
                 onPress={handleSubmit(handleSignIn)}
@@ -119,7 +119,7 @@ export function SignIn() {
               Ainda não tem acesso?
             </Text>
             <Button
-              testID='Create-Button'
+              testID='create-button'
               disabled={isLoading}
               title='Criar uma conta'
               bgColor='gray.300'
