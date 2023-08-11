@@ -1390,7 +1390,7 @@ exports[`Home view should render correctly with search value 1`] = `
             {
               "backgroundColor": "#5F5B62",
               "height": "100%",
-              "opacity": 0.0005299148153466687,
+              "opacity": 0.0007181563232328777,
               "width": "100%",
             }
           }
