@@ -4,6 +4,7 @@ import { PhotoMap } from './photo.map';
 import { PaymentMethodsMap } from './payment-methods.map';
 import { ProductDTO, UserProductResponseDTO } from '@dtos/product.dtos';
 import { IUserProduct } from 'src/interfaces/user-product.interface';
+import { BaseUserModel } from 'src/models/user.model';
 
 class ProductMap {
   static toIProduct({
@@ -32,7 +33,7 @@ class ProductMap {
         PaymentMethodsMap.toIPaymentMethods(item)
       ),
       product_images: product_images.map((item) => PhotoMap.toIPhoto(item)),
-      user,
+      user: user as BaseUserModel,
     };
   }
 
