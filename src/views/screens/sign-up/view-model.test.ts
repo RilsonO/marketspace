@@ -49,7 +49,7 @@ const mockSignInUser = jest.fn();
   signInUser: mockSignInUser,
 });
 
-describe('SignIn view-model [useSignUpViewModel]', () => {
+describe('SignUp view-model [useSignUpViewModel]', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
