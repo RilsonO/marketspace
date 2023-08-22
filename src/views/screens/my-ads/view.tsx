@@ -1,51 +1,37 @@
-// import { Ads } from '@components/Ads';
-// import { useAuth } from '@hooks/useAuthViewModel';
-// import { useFocusEffect, useNavigation } from '@react-navigation/native';
-// import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import {
-  Center,
   HStack,
   Text,
   VStack,
   useTheme,
   Pressable,
-  Select,
   Menu,
-  HamburgerIcon,
   FlatList,
 } from 'native-base';
-// import { CaretDown, CaretUp, Plus } from 'phosphor-react-native';
-// import { useCallback, useEffect, useState } from 'react';
-// import { IProduct } from 'src/interfaces/IProduct';
+import { CaretDown, CaretUp, Plus } from 'phosphor-react-native';
+import { useEffect } from 'react';
+import { useMyAdsViewModel } from './view-model';
+import { Ads } from '@views/components/Ads';
 
 export function MyAds() {
   const { colors, sizes } = useTheme();
-  // const { userProducts } = useAuth();
-  // const { navigate } = useNavigation<AppNavigatorRoutesProps>();
+  const {
+    user,
+    products,
+    filter,
+    filterIsOpened,
+    productsUpdate,
+    handleOpenCreateAd,
+    handleFilterIsOpened,
+    handleFilter,
+  } = useMyAdsViewModel();
 
-  // const [filter, setFilter] = useState('Todos');
-  // const [filterIsOpened, setFilterIsOpened] = useState(false);
-  // const [data, setData] = useState<IProduct[]>([] as IProduct[]);
-
-  // function handleOpenCreateAd() {
-  //   navigate('createAd');
-  // }
-
-  // useEffect(() => {
-  //   if (filter === 'Todos') {
-  //     setData(userProducts);
-  //   }
-  //   if (filter === 'Ativos') {
-  //     setData(userProducts.filter((product) => product.is_active === true));
-  //   }
-  //   if (filter === 'Inativos') {
-  //     setData(userProducts.filter((product) => product.is_active === false));
-  //   }
-  // }, [filter, userProducts]);
+  useEffect(() => {
+    productsUpdate();
+  }, [filter, user.products]);
 
   return (
     <VStack flex={1} px='6' safeAreaTop>
-      {/* <HStack alignItems='center' justifyContent='center' mt='2' mb='4'>
+      <HStack alignItems='center' justifyContent='center' mt='2' mb='4'>
         <Text fontFamily='bold' fontSize='lg+' color='gray.700'>
           Meus anúncios
         </Text>
@@ -57,7 +43,7 @@ export function MyAds() {
 
       <HStack justifyContent='space-between' alignItems='center'>
         <Text fontFamily='regular' fontSize='sm' color='gray.600'>
-          {userProducts.length} anúncio{userProducts.length > 1 && 's'}
+          {user.products.length} anúncio{user.products.length > 1 && 's'}
         </Text>
 
         <Menu
@@ -65,6 +51,7 @@ export function MyAds() {
           trigger={(triggerProps) => {
             return (
               <Pressable
+                testID='filter-button'
                 accessibilityLabel='More options menu'
                 flexDirection='row'
                 borderRadius={6}
@@ -89,13 +76,14 @@ export function MyAds() {
               </Pressable>
             );
           }}
-          onOpen={() => setFilterIsOpened(true)}
-          onClose={() => setFilterIsOpened(false)}
+          onOpen={() => handleFilterIsOpened(true)}
+          onClose={() => handleFilterIsOpened(false)}
           bgColor='white'
           mt='1'
         >
           <Menu.Item
-            onPress={() => setFilter('Todos')}
+            testID='todos-filter-item'
+            onPress={() => handleFilter('Todos')}
             _text={{
               fontFamily: filter === 'Todos' ? 'bold' : 'regular',
               fontSize: 'sm',
@@ -105,7 +93,8 @@ export function MyAds() {
             Todos
           </Menu.Item>
           <Menu.Item
-            onPress={() => setFilter('Ativos')}
+            testID='ativos-filter-item'
+            onPress={() => handleFilter('Ativos')}
             _text={{
               fontFamily: filter === 'Ativos' ? 'bold' : 'regular',
               fontSize: 'sm',
@@ -115,7 +104,8 @@ export function MyAds() {
             Ativos
           </Menu.Item>
           <Menu.Item
-            onPress={() => setFilter('Inativos')}
+            testID='inativos-filter-item'
+            onPress={() => handleFilter('Inativos')}
             _text={{
               fontFamily: filter === 'Inativos' ? 'bold' : 'regular',
               fontSize: 'sm',
@@ -128,7 +118,7 @@ export function MyAds() {
       </HStack>
 
       <FlatList
-        data={data}
+        data={products}
         keyExtractor={(item) => String(item)}
         renderItem={({ item }) => <Ads showAvatar={false} {...item} />}
         horizontal={false}
@@ -140,7 +130,7 @@ export function MyAds() {
           justifyContent: 'space-between',
         }}
         showsVerticalScrollIndicator={false}
-      /> */}
+      />
     </VStack>
   );
 }
