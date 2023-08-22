@@ -42,7 +42,7 @@ export function Ads({
   id,
 }: Props) {
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
-  const [avatarIsLoading, setAvatarIsLoading] = useState(false);
+  const [avatarIsLoading, setAvatarIsLoading] = useState(true);
 
   function handleNavigateToAdDetails() {
     const productId: string = id as string;
@@ -63,6 +63,7 @@ export function Ads({
               }}
               alt='Foto do produto'
               resizeMode='cover'
+              onLoadEnd={() => setAvatarIsLoading(false)}
             />
           ) : (
             <Box
@@ -114,7 +115,7 @@ export function Ads({
             )}
 
             <Box
-              bg={true ? 'blue.700' : 'gray.600'}
+              bg={is_new ? 'blue.700' : 'gray.600'}
               rounded='full'
               px='2'
               alignItems='center'
