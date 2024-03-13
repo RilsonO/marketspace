@@ -7,7 +7,6 @@ import { UserModel } from 'src/models/user.model';
 
 type Filter = 'Todos' | 'Ativos' | 'Inativos';
 
-/* eslint-disable no-unused-vars*/
 export interface MyAdsViewModel {
   user: UserModel;
   products: IProduct[];
@@ -18,7 +17,6 @@ export interface MyAdsViewModel {
   handleFilterIsOpened: (value: boolean) => void;
   handleFilter: (filter: Filter) => void;
 }
-/* eslint-disable no-unused-vars*/
 
 function useMyAdsViewModel(): MyAdsViewModel {
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
