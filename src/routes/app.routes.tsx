@@ -1,6 +1,6 @@
 import { CreateAd } from '@views/screens/CreateAd';
 import { PreviewAd } from '@views/screens/PreviewAd';
-import { AdDetails } from '@views/screens/AdDetails';
+import { AdDetails } from '@views/screens/ad-details/view';
 import { IProduct } from 'src/interfaces/product.interface';
 import {
   NativeStackNavigationProp,
