@@ -45,7 +45,6 @@ export interface SignUpViewModel {
   photo: IPhoto;
   passwordSecureTextEntry: boolean;
   passwordConfirmSecureTextEntry: boolean;
-  // eslint-disable-next-line no-unused-vars
   handleSignUp: (params: FormDataProps) => Promise<void>;
   handleUserPhotoSelect: () => void;
   handleGoBack: () => void;
