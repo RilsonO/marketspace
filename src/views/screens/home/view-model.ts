@@ -13,7 +13,6 @@ import { Modalize } from 'react-native-modalize';
 import { UserModel } from 'src/models/user.model';
 import { fetchProducts } from '@infra/http/repositories/product.repository';
 
-/* eslint-disable no-unused-vars*/
 export interface HomeViewModel {
   user: UserModel;
   isFetchLoading: boolean;
@@ -37,7 +36,6 @@ export interface HomeViewModel {
   handlePaymentMethods: (payment_method: IPaymentMethods) => void;
   fetchUserData: () => Promise<void>;
 }
-/* eslint-disable no-unused-vars*/
 
 function useHomeViewModel(): HomeViewModel {
   const { user } = useAuthViewModel();
