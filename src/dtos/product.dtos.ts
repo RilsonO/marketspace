@@ -32,3 +32,12 @@ export interface ProductDetailDTO extends UserProductResponseDTO {
 export interface ProductsRequestDTO {
   filter: string;
 }
+
+export interface ProductRequestDTO {
+  id: string;
+}
+
+export interface ProductToggleDisableRequestDTO {
+  id: string;
+  is_active: boolean;
+}
