@@ -17,7 +17,7 @@ type APIInstanceProps = AxiosInstance & {
 };
 
 const client = axios.create({
-  baseURL: 'http://192.168.1.2:3333',
+  baseURL: process.env.EXPO_PUBLIC_API_URL,
 }) as APIInstanceProps;
 
 let failedQueue: Array<PromiseType> = [];
@@ -29,7 +29,7 @@ client.registerInterceptTokenManager = (signOut) => {
     async (requestError) => {
       if (requestError?.response?.status === 401) {
         const { refresh_token, token } = await storageAuthTokenGet();
-        if (!!token) {
+        if (token) {
           if (
             requestError.response.data?.message === 'token.expired' ||
             requestError.response.data?.message === 'token.invalid'
