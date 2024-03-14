@@ -17,9 +17,12 @@
         {
           "photosPermission": "The app accesses your photos to get your profile photo."
         }
-      ]
+      ],
+      "expo-font"
     ],
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
