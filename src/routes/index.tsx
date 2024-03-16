@@ -3,17 +3,17 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { AuthRoutes } from './auth.routes';
 import { AppRoutes } from './app.routes';
 
-import { Loading } from '@components/Loading';
-import { useAuth } from '@hooks/useAuth';
+import { Loading } from '@views/components/loading/view';
+import { useAuthViewModel } from '@hooks/use-auth.hook';
 
 export function Routes() {
   const { colors } = useTheme();
-  const { user, isLoadingUserStorageData } = useAuth();
+  const { user, isLoading } = useAuthViewModel();
 
   const theme = DefaultTheme;
   theme.colors.background = colors.gray[200];
 
-  if (isLoadingUserStorageData) {
+  if (isLoading) {
     return <Loading />;
   }
 
