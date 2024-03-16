@@ -6,15 +6,14 @@
     "paths": {
       "@dtos/*": ["src/dtos/*"],
       "@assets/*": ["./src/assets/*"],
-      "@components/*": ["./src/components/*"],
-      "@screens/*": ["./src/screens/*"],
-      "@storage/*": ["./src/storage/*"],
+      "@views/*": ["./src/views/*"],
+      "@infra/*": ["./src/infra/*"],
       "@utils/*": ["./src/utils/*"],
-      "@services/*": ["./src/services/*"],
       "@hooks/*": ["./src/hooks/*"],
-      "@contexts/*": ["./src/contexts/*"],
+      "@view-models/*": ["./src/view-models/*"],
       "@routes/*": ["./src/routes/*"],
-      "@mappers/*": ["./src/mappers/*"]
+      "@mappers/*": ["./src/mappers/*"],
+      "@interfaces/*": ["./src/interfaces/*"]
     }
   }
 }
