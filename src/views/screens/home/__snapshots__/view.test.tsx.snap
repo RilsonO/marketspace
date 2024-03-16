@@ -51,7 +51,7 @@ exports[`Home view should render correctly 1`] = `
           onError={[Function]}
           source={
             {
-              "uri": "http://192.168.1.2:3333/images/user_avatar.jpg",
+              "uri": "undefined/images/user_avatar.jpg",
             }
           }
           style={
@@ -220,7 +220,14 @@ exports[`Home view should render correctly 1`] = `
               vbWidth={256}
               width={16}
             >
-              <RNSVGGroup>
+              <RNSVGGroup
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
+              >
                 <RNSVGRect
                   fill={null}
                   height="256"
@@ -572,7 +579,14 @@ exports[`Home view should render correctly 1`] = `
                   vbWidth={256}
                   width={20}
                 >
-                  <RNSVGGroup>
+                  <RNSVGGroup
+                    fill={
+                      {
+                        "payload": 4278190080,
+                        "type": 0,
+                      }
+                    }
+                  >
                     <RNSVGRect
                       fill={null}
                       height="256"
@@ -721,7 +735,14 @@ exports[`Home view should render correctly 1`] = `
                   vbWidth={256}
                   width={20}
                 >
-                  <RNSVGGroup>
+                  <RNSVGGroup
+                    fill={
+                      {
+                        "payload": 4278190080,
+                        "type": 0,
+                      }
+                    }
+                  >
                     <RNSVGRect
                       fill={null}
                       height="256"
@@ -1074,7 +1095,7 @@ exports[`Home view should render correctly with search value 1`] = `
           onError={[Function]}
           source={
             {
-              "uri": "http://192.168.1.2:3333/images/user_avatar.jpg",
+              "uri": "undefined/images/user_avatar.jpg",
             }
           }
           style={
@@ -1243,7 +1264,14 @@ exports[`Home view should render correctly with search value 1`] = `
               vbWidth={256}
               width={16}
             >
-              <RNSVGGroup>
+              <RNSVGGroup
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
+              >
                 <RNSVGRect
                   fill={null}
                   height="256"
@@ -1390,7 +1418,7 @@ exports[`Home view should render correctly with search value 1`] = `
             {
               "backgroundColor": "#5F5B62",
               "height": "100%",
-              "opacity": 0.0006205664881961128,
+              "opacity": 0.0005299148153466687,
               "width": "100%",
             }
           }
@@ -1595,7 +1623,14 @@ exports[`Home view should render correctly with search value 1`] = `
                   vbWidth={256}
                   width={20}
                 >
-                  <RNSVGGroup>
+                  <RNSVGGroup
+                    fill={
+                      {
+                        "payload": 4278190080,
+                        "type": 0,
+                      }
+                    }
+                  >
                     <RNSVGRect
                       fill={null}
                       height="256"
@@ -1744,7 +1779,14 @@ exports[`Home view should render correctly with search value 1`] = `
                   vbWidth={256}
                   width={20}
                 >
-                  <RNSVGGroup>
+                  <RNSVGGroup
+                    fill={
+                      {
+                        "payload": 4278190080,
+                        "type": 0,
+                      }
+                    }
+                  >
                     <RNSVGRect
                       fill={null}
                       height="256"

@@ -1,4 +1,4 @@
-import { act, fireEvent, render } from '@testing-library/react-native';
+import { act, fireEvent, render, waitFor } from '@testing-library/react-native';
 import { Home } from './view';
 import { THEME } from '../../../theme';
 import { HomeViewModel, useHomeViewModel } from './view-model';
@@ -136,16 +136,14 @@ describe('Home view', () => {
 
   it('should render correctly with search value', async () => {
     const search = 'bicicleta';
-
     const { toJSON, findByPlaceholderText } = makeSut({
       search,
     });
-
-    const adInput = await findByPlaceholderText('Buscar anúncio');
-
-    expect(adInput.props.value).toEqual(search);
-
-    expect(toJSON()).toMatchSnapshot();
+    await waitFor(async () => {
+      const adInput = await findByPlaceholderText('Buscar anúncio');
+      expect(adInput.props.value).toEqual(search);
+      expect(toJSON()).toMatchSnapshot();
+    });
   });
 
   it('should render products correctly', () => {
@@ -191,11 +189,13 @@ describe('Home view', () => {
       data: mockedProducts,
     });
 
-    mockedProducts.forEach((product) => {
-      expect(queryByText(product.name)).toBeTruthy();
-      expect(
-        queryByText(`R$${toMaskedPrice(String(product.price))}`)
-      ).toBeTruthy();
+    mockedProducts.forEach(async (product) => {
+      await waitFor(() => {
+        expect(queryByText(product.name)).toBeTruthy();
+        expect(
+          queryByText(`R$${toMaskedPrice(String(product.price))}`)
+        ).toBeTruthy();
+      });
     });
   });
 
@@ -266,11 +266,12 @@ describe('Home view', () => {
   it('should call handleOpenCreateAd when "Criar anúncio" button is pressed', async () => {
     const { getByText, handleOpenCreateAd } = makeSut({});
 
-    await act(() => {
+    await act(async () => {
       fireEvent.press(getByText('Criar anúncio'));
+      await waitFor(() => {
+        expect(handleOpenCreateAd).toHaveBeenCalled();
+      });
     });
-
-    expect(handleOpenCreateAd).toHaveBeenCalled();
   });
 
   it('should call handleNavigateToMyAds when "Meus anúncios" button is pressed', async () => {
@@ -278,21 +279,24 @@ describe('Home view', () => {
       isFetchLoading: false,
     });
 
-    await act(() => {
+    await act(async () => {
       fireEvent.press(getByText('Meus anúncios'));
+      await waitFor(() => {
+        expect(handleNavigateToMyAds).toHaveBeenCalled();
+      });
     });
-
-    expect(handleNavigateToMyAds).toHaveBeenCalled();
   });
 
   it('should call handleOpenModalize when filter button is pressed', async () => {
     const { UNSAFE_getByType, handleOpenModalize } = makeSut({});
 
-    await act(() => {
+    await act(async () => {
       fireEvent.press(UNSAFE_getByType(Faders));
-    });
 
-    expect(handleOpenModalize).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(handleOpenModalize).toHaveBeenCalled();
+      });
+    });
   });
 
   it('should call handleCloseModalize when the modal is closed', async () => {
@@ -301,12 +305,14 @@ describe('Home view', () => {
     await act(() => {
       modalizeRef.current?.open();
     });
-
-    await act(() => {
+    await waitFor(() => expect(modalizeRef.current).toBeTruthy());
+    await act(async () => {
       fireEvent.press(UNSAFE_getByType(X));
-    });
 
-    expect(handleCloseModalize).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(handleCloseModalize).toHaveBeenCalled();
+      });
+    });
   });
 
   it('should call handleIsNew when "NOVO" checkbox is pressed', async () => {
@@ -315,12 +321,13 @@ describe('Home view', () => {
     await act(() => {
       modalizeRef.current?.open();
     });
-
-    await act(() => {
+    await waitFor(() => expect(modalizeRef.current).toBeTruthy());
+    await act(async () => {
       fireEvent.press(getByText('NOVO'));
+      await waitFor(() => {
+        expect(handleIsNew).toHaveBeenCalledWith(true);
+      });
     });
-
-    expect(handleIsNew).toHaveBeenCalledWith(true);
   });
 
   it('should call onToggleAcceptTrade when "Aceita troca?" switch is toggled', async () => {
@@ -329,30 +336,36 @@ describe('Home view', () => {
     await act(() => {
       modalizeRef.current?.open();
     });
-    const switchComponent = UNSAFE_getByType(Switch);
+    await waitFor(() => expect(modalizeRef.current).toBeTruthy());
 
-    await act(() => {
+    const switchComponent = UNSAFE_getByType(Switch);
+    await act(async () => {
       switchComponent.props.onToggle();
-      expect(onToggleAcceptTrade).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(onToggleAcceptTrade).toHaveBeenCalled();
+      });
     });
   });
 
-  it('should render correctly with user photo skeleton when user has no photo', () => {
+  it('should render correctly with user photo skeleton when user has no photo', async () => {
     const mockedUser = {
       ...(defaultMockedUser as object),
       avatar: null,
     } as unknown;
     const { queryByTestId } = makeSut({ user: mockedUser as UserModel });
 
-    expect(queryByTestId('user-photo-skeleton')).toBeTruthy();
-    expect(queryByTestId('user-photo')).toBeNull();
+    await waitFor(() => {
+      expect(queryByTestId('user-photo-skeleton')).toBeTruthy();
+      expect(queryByTestId('user-photo')).toBeNull();
+    });
   });
 
-  it('should render correctly with user photo when available', () => {
+  it('should render correctly with user photo when available', async () => {
     const { queryByTestId, getByTestId } = makeSut({});
-
-    expect(queryByTestId('user-photo-skeleton')).toBeNull();
-    expect(getByTestId('user-photo')).toBeTruthy();
+    await waitFor(() => {
+      expect(queryByTestId('user-photo-skeleton')).toBeNull();
+      expect(getByTestId('user-photo')).toBeTruthy();
+    });
   });
 
   it('should render correctly with "USADO" checkbox checked', async () => {
@@ -361,22 +374,24 @@ describe('Home view', () => {
     await act(() => {
       modalizeRef.current?.open();
     });
-
-    await act(() => {
+    await waitFor(() => expect(modalizeRef.current).toBeTruthy());
+    await act(async () => {
       fireEvent.press(getByText('USADO'));
+      await waitFor(() => {
+        expect(handleIsNew).toHaveBeenCalledWith(false);
+      });
     });
-
-    expect(handleIsNew).toHaveBeenCalledWith(false);
   });
 
   it('should call fetchFilteredProducts when search button is pressed', async () => {
     const { UNSAFE_getByType, fetchFilteredProducts } = makeSut({});
 
-    await act(() => {
+    await act(async () => {
       fireEvent.press(UNSAFE_getByType(MagnifyingGlass));
+      await waitFor(() => {
+        expect(fetchFilteredProducts).toHaveBeenCalled();
+      });
     });
-
-    expect(fetchFilteredProducts).toHaveBeenCalled();
   });
 
   it('should call fetchFilteredProducts when search input is submitted', async () => {
@@ -384,11 +399,13 @@ describe('Home view', () => {
 
     const inputComponent = getByPlaceholderText('Buscar anúncio');
 
-    await act(() => {
+    await act(async () => {
       inputComponent.props.onSubmitEditing();
-    });
 
-    expect(fetchFilteredProducts).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(fetchFilteredProducts).toHaveBeenCalled();
+      });
+    });
   });
 
   it('should call handlePaymentMethods when a payment method checkbox is pressed', async () => {
@@ -397,36 +414,43 @@ describe('Home view', () => {
     await act(() => {
       modalizeRef.current?.open();
     });
+    await waitFor(() => expect(modalizeRef.current).toBeTruthy());
 
-    await act(() => {
+    await act(async () => {
       fireEvent.press(getByText('Boleto'));
+
+      await waitFor(() => {
+        expect(handlePaymentMethods).toHaveBeenCalledWith('boleto');
+      });
     });
 
-    expect(handlePaymentMethods).toHaveBeenCalledWith('boleto');
-
-    await act(() => {
+    await act(async () => {
       fireEvent.press(getByText('Pix'));
+      await waitFor(() => {
+        expect(handlePaymentMethods).toHaveBeenCalledWith('pix');
+      });
     });
 
-    expect(handlePaymentMethods).toHaveBeenCalledWith('pix');
-
-    await act(() => {
+    await act(async () => {
       fireEvent.press(getByText('Dinheiro'));
+      await waitFor(() => {
+        expect(handlePaymentMethods).toHaveBeenCalledWith('cash');
+      });
     });
 
-    expect(handlePaymentMethods).toHaveBeenCalledWith('cash');
-
-    await act(() => {
+    await act(async () => {
       fireEvent.press(getByText('Cartão de Crédito'));
+      await waitFor(() => {
+        expect(handlePaymentMethods).toHaveBeenCalledWith('card');
+      });
     });
 
-    expect(handlePaymentMethods).toHaveBeenCalledWith('card');
-
-    await act(() => {
+    await act(async () => {
       fireEvent.press(getByText('Deposito Bancário'));
+      await waitFor(() => {
+        expect(handlePaymentMethods).toHaveBeenCalledWith('deposit');
+      });
     });
-
-    expect(handlePaymentMethods).toHaveBeenCalledWith('deposit');
   });
 
   it('should call handlePaymentMethods when "Resetar filtros" button is pressed', async () => {
@@ -435,12 +459,14 @@ describe('Home view', () => {
     await act(() => {
       modalizeRef.current?.open();
     });
+    await waitFor(() => expect(modalizeRef.current).toBeTruthy());
 
-    await act(() => {
+    await act(async () => {
       fireEvent.press(getByText('Resetar filtros'));
+      await waitFor(() => {
+        expect(handleResetFilters).toHaveBeenCalled();
+      });
     });
-
-    expect(handleResetFilters).toHaveBeenCalled();
   });
 
   it('should call handlePaymentMethods when "Aplicar filtros" button is pressed', async () => {
@@ -449,11 +475,13 @@ describe('Home view', () => {
     await act(() => {
       modalizeRef.current?.open();
     });
+    await waitFor(() => expect(modalizeRef.current).toBeTruthy());
 
-    await act(() => {
+    await act(async () => {
       fireEvent.press(getByText('Aplicar filtros'));
+      await waitFor(() => {
+        expect(fetchFilteredProducts).toHaveBeenCalled();
+      });
     });
-
-    expect(fetchFilteredProducts).toHaveBeenCalled();
   });
 });
