@@ -8,7 +8,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest",
-    "test:watch": "jest  --watchAll"
+    "test:watch": "jest  --watchAll",
+    "test:coverage": "jest --coverage --u"
   },
   "dependencies": {
     "@expo-google-fonts/karla": "^0.2.3",
@@ -27,7 +28,7 @@
     "phosphor-react-native": "^1.1.2",
     "react": "18.2.0",
     "react-hook-form": "^7.43.5",
-    "react-native": "0.73.4",
+    "react-native": "0.73.5",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-masked-text": "^1.13.0",
     "react-native-modalize": "^2.1.1",
