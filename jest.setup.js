@@ -1,3 +1,5 @@
+const originalConsoleWarn = console.warn;
+
 console.warn = (message) => {
   if (
     message.includes(
@@ -6,5 +8,5 @@ console.warn = (message) => {
   ) {
     return;
   }
-  console.warn(message);
+  originalConsoleWarn(message);
 };
