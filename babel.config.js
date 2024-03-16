@@ -17,6 +17,7 @@ module.exports = function (api) {
             '@view-models': './src/view-models',
             '@routes': './src/routes',
             '@mappers': './src/mappers',
+            '@interfaces': './src/interfaces',
           },
         },
       ],
