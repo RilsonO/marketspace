@@ -10,7 +10,7 @@ import {
   Karla_300Light,
 } from '@expo-google-fonts/karla';
 import { THEME } from './src/theme';
-import { Loading } from '@views/components/Loading';
+import { Loading } from '@views/components/loading/view';
 import { Routes } from '@routes/index';
 import { AuthContextProvider } from '@view-models/auth.view-model';
 

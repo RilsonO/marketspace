@@ -1,4 +1,4 @@
-import { UserPhoto } from '@views/components/UserPhoto';
+import { UserPhoto } from '@views/components/user-photo/view';
 import {
   Divider,
   FlatList,
@@ -11,7 +11,7 @@ import {
   useTheme,
   VStack,
 } from 'native-base';
-import { Button } from '@views/components/Button';
+import { Button } from '@views/components/button/view';
 import {
   Plus,
   Tag,
@@ -20,14 +20,14 @@ import {
   Faders,
   X,
 } from 'phosphor-react-native';
-import { Input } from '@views/components/Input';
-import { Ads } from '@views/components/Ads';
+import { Input } from '@views/components/input/view';
+import { Ads } from '@views/components/ads/view';
 import { Modalize } from 'react-native-modalize';
 import { Dimensions } from 'react-native';
 import { Portal } from 'react-native-portalize';
-import { TagButton } from '@views/components/TagButton';
-import { Checkbox } from '@views/components/Checkbox';
-import { Loading } from '@views/components/Loading';
+import { TagButton } from '@views/components/tag-button/view';
+import { Checkbox } from '@views/components/checkbox/view';
+import { Loading } from '@views/components/loading/view';
 import { client } from '@infra/http/client.http';
 import { useHomeViewModel } from './view-model';
 import { useFocusEffect } from '@react-navigation/native';

@@ -10,7 +10,7 @@ import {
 import { CaretDown, CaretUp, Plus } from 'phosphor-react-native';
 import { useEffect } from 'react';
 import { useMyAdsViewModel } from './view-model';
-import { Ads } from '@views/components/Ads';
+import { Ads } from '@views/components/ads/view';
 
 export function MyAds() {
   const { colors, sizes } = useTheme();

@@ -13,12 +13,12 @@ import {
 } from 'native-base';
 import LogoSvg from '@assets/logo.svg';
 import { useSignUpViewModel } from './view-model';
-import { UserPhoto } from '@views/components/UserPhoto';
+import { UserPhoto } from '@views/components/user-photo/view';
 import defaultUserPhotoImg from '@assets/userPhotoDefault.png';
 import { Eye, EyeSlash, PencilSimpleLine } from 'phosphor-react-native';
 import { Controller } from 'react-hook-form';
-import { Button } from '@views/components/Button';
-import { Input } from '@views/components/Input';
+import { Button } from '@views/components/button/view';
+import { Input } from '@views/components/input/view';
 import { toMaskedPhone } from '@utils/Masks.util';
 
 const PHOTO_SIZE = 22;

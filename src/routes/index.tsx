@@ -3,7 +3,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { AuthRoutes } from './auth.routes';
 import { AppRoutes } from './app.routes';
 
-import { Loading } from '@views/components/Loading';
+import { Loading } from '@views/components/loading/view';
 import { useAuthViewModel } from '@hooks/use-auth.hook';
 
 export function Routes() {

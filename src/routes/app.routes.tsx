@@ -1,5 +1,5 @@
-import { CreateAd } from '@views/screens/CreateAd';
-import { PreviewAd } from '@views/screens/PreviewAd';
+import { CreateAd } from '@views/screens/create-ad/view';
+import { PreviewAd } from '@views/screens/preview-ad/view';
 import { AdDetails } from '@views/screens/ad-details/view';
 import { IProduct } from 'src/interfaces/product.interface';
 import {

@@ -12,8 +12,8 @@ import {
 import { Controller } from 'react-hook-form';
 
 import LogoSvg from '@assets/logo_with_name.svg';
-import { Input } from '@views/components/Input';
-import { Button } from '@views/components/Button';
+import { Input } from '@views/components/input/view';
+import { Button } from '@views/components/button/view';
 import { Eye, EyeSlash } from 'phosphor-react-native';
 import { useSignInViewModel } from './view-model';
 
