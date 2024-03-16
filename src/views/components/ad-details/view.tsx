@@ -1,17 +1,11 @@
-import { Box, HStack, ScrollView, Text, VStack, useTheme } from 'native-base';
-import { ImageSlider } from './ImageSlider';
-import { UserPhoto } from './UserPhoto';
-import { api } from '@services/api';
-import {
-  Bank,
-  Barcode,
-  CreditCard,
-  Money,
-  QrCode,
-} from 'phosphor-react-native';
+import { Box, HStack, ScrollView, Text, VStack } from 'native-base';
+import { ImageSlider } from '../image-slider/view';
 import { IProduct } from 'src/interfaces/product.interface';
 import { toMaskedPrice } from '@utils/Masks.util';
-import { IPaymentMethods } from 'src/interfaces/payment-methods.interface';
+import { client } from '@infra/http/client.http';
+import { UserPhoto } from '../user-photo/view';
+import { useAdDetailsViewModel } from './view-model';
+import { PaymentMethod } from './components/payment-method/view';
 
 const PHOTO_SIZE = 6;
 
@@ -26,60 +20,7 @@ export function AdDetails({
   price,
   is_active = true,
 }: IProduct) {
-  const { colors, sizes } = useTheme();
-
-  function paymentMethodIndicator(paymentMethod: IPaymentMethods) {
-    switch (paymentMethod) {
-      case 'boleto':
-        return (
-          <>
-            <Barcode size={sizes[5]} color={colors.gray[700]} />
-            <Text fontFamily='regular' fontSize='sm' color='gray.600' ml='2'>
-              Boleto
-            </Text>
-          </>
-        );
-      case 'pix':
-        return (
-          <>
-            <QrCode size={sizes[5]} color={colors.gray[700]} />
-            <Text fontFamily='regular' fontSize='sm' color='gray.600' ml='2'>
-              Pix
-            </Text>
-          </>
-        );
-      case 'deposit':
-        return (
-          <>
-            <Bank size={sizes[5]} color={colors.gray[700]} />
-            <Text fontFamily='regular' fontSize='sm' color='gray.600' ml='2'>
-              Depósito Bancário
-            </Text>
-          </>
-        );
-      case 'cash':
-        return (
-          <>
-            <Money size={sizes[5]} color={colors.gray[700]} />
-            <Text fontFamily='regular' fontSize='sm' color='gray.600' ml='2'>
-              Dinheiro
-            </Text>
-          </>
-        );
-      case 'card':
-        return (
-          <>
-            <CreditCard size={sizes[5]} color={colors.gray[700]} />
-            <Text fontFamily='regular' fontSize='sm' color='gray.600' ml='2'>
-              Cartão de Crédito
-            </Text>
-          </>
-        );
-
-      default:
-        break;
-    }
-  }
+  const { paymentMethodsToShow } = useAdDetailsViewModel(payment_methods);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -88,7 +29,7 @@ export function AdDetails({
       <VStack px='6'>
         <HStack my='6'>
           <UserPhoto
-            source={{ uri: `${api.defaults.baseURL}/images/${user.avatar}` }}
+            source={{ uri: `${client.defaults.baseURL}/images/${user.avatar}` }}
             alt='Foto do vendedor'
             size={PHOTO_SIZE}
             borderWidth={2}
@@ -142,9 +83,9 @@ export function AdDetails({
           Meios de pagamento:
         </Text>
 
-        {payment_methods.map((item, index) => (
+        {paymentMethodsToShow.map((item, index) => (
           <HStack key={item + String(index)} mt='1'>
-            {paymentMethodIndicator(item)}
+            <PaymentMethod title={item.title} icon={item.icon} />
           </HStack>
         ))}
       </VStack>

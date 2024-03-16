@@ -1,4 +1,5 @@
 import { Button as ButtonNativeBase, IButtonProps, Text } from 'native-base';
+import { useButtonViewModel } from './view-model';
 
 type Props = IButtonProps & {
   title: string;
@@ -6,14 +7,7 @@ type Props = IButtonProps & {
 };
 
 export function Button({ title, bgColor = 'blue.400', ...rest }: Props) {
-  function getPressedBgColor() {
-    const bgColorArray = bgColor.split('.');
-    const prefixBgColor = bgColorArray[0];
-    const alphaBgColor = Number(bgColorArray[1].split('0')[0]);
-    const pressedBgColor = `${prefixBgColor}.${String(alphaBgColor - 1)}00`;
-
-    return pressedBgColor;
-  }
+  const { getPressedBgColor } = useButtonViewModel();
 
   return (
     <ButtonNativeBase
@@ -23,7 +17,7 @@ export function Button({ title, bgColor = 'blue.400', ...rest }: Props) {
       bg={bgColor}
       rounded={6}
       _pressed={{
-        bg: getPressedBgColor(),
+        bg: getPressedBgColor(bgColor),
       }}
     >
       <Text

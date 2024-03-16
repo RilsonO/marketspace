@@ -9,14 +9,12 @@ import {
   VStack,
 } from 'native-base';
 import { Dimensions } from 'react-native';
-import { UserPhoto } from './UserPhoto';
+import { UserPhoto } from '../user-photo/view';
 import defaultUserPhotoImg from '@assets/userPhotoDefault.png';
-import { useState } from 'react';
 import { IProduct } from 'src/interfaces/product.interface';
 import { toMaskedPrice } from '@utils/Masks.util';
-import { useNavigation } from '@react-navigation/native';
-import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { client } from '@infra/http/client.http';
+import { useAdsViewModel } from './view-model';
 
 const { width } = Dimensions.get('screen');
 const MARGIN_BETWEEN = 32;
@@ -41,16 +39,11 @@ export function Ads({
   price,
   id,
 }: Props) {
-  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
-  const [avatarIsLoading, setAvatarIsLoading] = useState(true);
-
-  function handleNavigateToAdDetails() {
-    const productId: string = id as string;
-    navigate('adDetails', { id: productId });
-  }
+  const { avatarIsLoading, handleAvatarLoading, handleNavigateToAdDetails } =
+    useAdsViewModel();
 
   return (
-    <Pressable onPress={handleNavigateToAdDetails}>
+    <Pressable onPress={() => handleNavigateToAdDetails(String(id))}>
       <VStack mb={4}>
         <VStack>
           {product_images[0]?.uri ? (
@@ -63,7 +56,7 @@ export function Ads({
               }}
               alt='Foto do produto'
               resizeMode='cover'
-              onLoadEnd={() => setAvatarIsLoading(false)}
+              onLoadEnd={() => handleAvatarLoading(false)}
             />
           ) : (
             <Box

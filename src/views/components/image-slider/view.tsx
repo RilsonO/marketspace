@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { ViewToken, Dimensions } from 'react-native';
-import { ImageIndicator } from './ImageIndicator';
+import { ImageIndicator } from '../image-indicator/view';
 import { Box, FlatList, HStack, Image, Text, VStack } from 'native-base';
 import { IPhoto } from 'src/interfaces/photo.interface';
 
