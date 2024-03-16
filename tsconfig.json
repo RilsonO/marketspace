@@ -12,7 +12,8 @@
       "@hooks/*": ["./src/hooks/*"],
       "@view-models/*": ["./src/view-models/*"],
       "@routes/*": ["./src/routes/*"],
-      "@mappers/*": ["./src/mappers/*"]
+      "@mappers/*": ["./src/mappers/*"],
+      "@interfaces/*": ["./src/interfaces/*"]
     }
   }
 }
