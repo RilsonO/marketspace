@@ -128,7 +128,14 @@ exports[`MyAds view should render correctly 1`] = `
           vbWidth={256}
           width={24}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGRect
               fill={null}
               height="256"
@@ -336,7 +343,14 @@ exports[`MyAds view should render correctly 1`] = `
           vbWidth={256}
           width={16}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGRect
               fill={null}
               height="256"
@@ -404,7 +418,7 @@ exports[`MyAds view should render correctly 1`] = `
       onScrollEndDrag={[Function]}
       removeClippedSubviews={false}
       renderItem={[Function]}
-      scrollEventThrottle={50}
+      scrollEventThrottle={0.0001}
       showsVerticalScrollIndicator={false}
       stickyHeaderIndices={[]}
       style={
@@ -551,7 +565,14 @@ exports[`MyAds view should render correctly with filter equal \`Ativos\` 1`] = `
           vbWidth={256}
           width={24}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGRect
               fill={null}
               height="256"
@@ -759,7 +780,14 @@ exports[`MyAds view should render correctly with filter equal \`Ativos\` 1`] = `
           vbWidth={256}
           width={16}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGRect
               fill={null}
               height="256"
@@ -827,7 +855,7 @@ exports[`MyAds view should render correctly with filter equal \`Ativos\` 1`] = `
       onScrollEndDrag={[Function]}
       removeClippedSubviews={false}
       renderItem={[Function]}
-      scrollEventThrottle={50}
+      scrollEventThrottle={0.0001}
       showsVerticalScrollIndicator={false}
       stickyHeaderIndices={[]}
       style={
@@ -974,7 +1002,14 @@ exports[`MyAds view should render correctly with filter equal \`Inativos\` 1`] =
           vbWidth={256}
           width={24}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGRect
               fill={null}
               height="256"
@@ -1182,7 +1217,14 @@ exports[`MyAds view should render correctly with filter equal \`Inativos\` 1`] =
           vbWidth={256}
           width={16}
         >
-          <RNSVGGroup>
+          <RNSVGGroup
+            fill={
+              {
+                "payload": 4278190080,
+                "type": 0,
+              }
+            }
+          >
             <RNSVGRect
               fill={null}
               height="256"
@@ -1250,7 +1292,7 @@ exports[`MyAds view should render correctly with filter equal \`Inativos\` 1`] =
       onScrollEndDrag={[Function]}
       removeClippedSubviews={false}
       renderItem={[Function]}
-      scrollEventThrottle={50}
+      scrollEventThrottle={0.0001}
       showsVerticalScrollIndicator={false}
       stickyHeaderIndices={[]}
       style={

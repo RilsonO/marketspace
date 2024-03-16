@@ -243,7 +243,14 @@ exports[`SignUp view should render buttons with prop \`disabled\` true 1`] = `
                       vbWidth={256}
                       width={16}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
@@ -659,7 +666,14 @@ exports[`SignUp view should render buttons with prop \`disabled\` true 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -857,7 +871,14 @@ exports[`SignUp view should render buttons with prop \`disabled\` true 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -1377,7 +1398,14 @@ exports[`SignUp view should render correctly 1`] = `
                       vbWidth={256}
                       width={16}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
@@ -1793,7 +1821,14 @@ exports[`SignUp view should render correctly 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -1991,7 +2026,14 @@ exports[`SignUp view should render correctly 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -2514,7 +2556,14 @@ exports[`SignUp view should render correctly with email 1`] = `
                       vbWidth={256}
                       width={16}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
@@ -2931,7 +2980,14 @@ exports[`SignUp view should render correctly with email 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -3129,7 +3185,14 @@ exports[`SignUp view should render correctly with email 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -3652,7 +3715,14 @@ exports[`SignUp view should render correctly with name 1`] = `
                       vbWidth={256}
                       width={16}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
@@ -4069,7 +4139,14 @@ exports[`SignUp view should render correctly with name 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -4267,7 +4344,14 @@ exports[`SignUp view should render correctly with name 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -4790,7 +4874,14 @@ exports[`SignUp view should render correctly with password 1`] = `
                       vbWidth={256}
                       width={16}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
@@ -5207,7 +5298,14 @@ exports[`SignUp view should render correctly with password 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -5405,7 +5503,14 @@ exports[`SignUp view should render correctly with password 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -5928,7 +6033,14 @@ exports[`SignUp view should render correctly with password confirmation 1`] = `
                       vbWidth={256}
                       width={16}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
@@ -6344,7 +6456,14 @@ exports[`SignUp view should render correctly with password confirmation 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -6543,7 +6662,14 @@ exports[`SignUp view should render correctly with password confirmation 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -7066,7 +7192,14 @@ exports[`SignUp view should render correctly with password confirmation secure t
                       vbWidth={256}
                       width={16}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
@@ -7482,7 +7615,14 @@ exports[`SignUp view should render correctly with password confirmation secure t
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -7680,7 +7820,14 @@ exports[`SignUp view should render correctly with password confirmation secure t
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -8203,7 +8350,14 @@ exports[`SignUp view should render correctly with phone 1`] = `
                       vbWidth={256}
                       width={16}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
@@ -8620,7 +8774,14 @@ exports[`SignUp view should render correctly with phone 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"
@@ -8818,7 +8979,14 @@ exports[`SignUp view should render correctly with phone 1`] = `
                     vbWidth={256}
                     width={20}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGRect
                         fill={null}
                         height="256"

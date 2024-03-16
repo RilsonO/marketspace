@@ -23,14 +23,12 @@ jest.mock('@react-navigation/native', () => {
 
 type Filter = 'Todos' | 'Ativos' | 'Inativos';
 
-/* eslint-disable no-unused-vars*/
 interface CreateMockMyAdsView {
   user: UserModel;
   products: IProduct[];
   filter: Filter;
   filterIsOpened: boolean;
 }
-/* eslint-disable no-unused-vars*/
 
 const createMockMyAdsViewModel = ({
   user,

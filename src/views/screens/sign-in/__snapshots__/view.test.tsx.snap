@@ -322,7 +322,14 @@ exports[`SignIn view should render buttons with prop \`disabled\` true 1`] = `
                       vbWidth={256}
                       width={20}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
@@ -923,7 +930,14 @@ exports[`SignIn view should render correctly 1`] = `
                       vbWidth={256}
                       width={20}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
@@ -1528,7 +1542,14 @@ exports[`SignIn view should render correctly with email 1`] = `
                       vbWidth={256}
                       width={20}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
@@ -2133,7 +2154,14 @@ exports[`SignIn view should render correctly with password 1`] = `
                       vbWidth={256}
                       width={20}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
@@ -2737,7 +2765,14 @@ exports[`SignIn view should render correctly with password with secure text entr
                       vbWidth={256}
                       width={20}
                     >
-                      <RNSVGGroup>
+                      <RNSVGGroup
+                        fill={
+                          {
+                            "payload": 4278190080,
+                            "type": 0,
+                          }
+                        }
+                      >
                         <RNSVGRect
                           fill={null}
                           height="256"
