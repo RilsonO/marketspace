@@ -5,6 +5,7 @@ module.exports = {
     '^@react-native-async-storage/async-storage$':
       '<rootDir>/src/__mocks__/async-storage.ts',
     '^@react-navigation/native$': '<rootDir>/src/__mocks__/navigation.ts',
+    '^src/(.*)$': '<rootDir>/src/$1',
   },
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
