@@ -12,7 +12,6 @@
   "rules": {
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
-    "no-console": "error",
-    "no-warning-comments": ["error", { "terms": [""], "location": "start" }]
+    "no-console": "error"
   }
 }

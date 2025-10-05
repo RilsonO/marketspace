@@ -2,18 +2,23 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    "module": "esnext",
+    "target": "es2020",
     "baseUrl": "./",
     "paths": {
-      "@dtos/*": ["src/dtos/*"],
+      "@dtos/*": ["src/application/dtos/*"],
       "@assets/*": ["./src/assets/*"],
-      "@views/*": ["./src/views/*"],
+      "@views/*": ["./src/presentation/screens/*"],
       "@infra/*": ["./src/infra/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@view-models/*": ["./src/view-models/*"],
-      "@routes/*": ["./src/routes/*"],
-      "@mappers/*": ["./src/mappers/*"],
-      "@interfaces/*": ["./src/interfaces/*"]
+      "@utils/*": ["./src/shared/utils/*"],
+      "@hooks/*": ["./src/presentation/hooks/*"],
+      "@view-models/*": ["./src/presentation/view-models/*"],
+      "@routes/*": ["./src/main/routes/*"],
+      "@mappers/*": ["./src/infra/mappers/*"],
+      "@interfaces/*": ["./src/shared/types/interfaces/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@domain/*": ["./src/domain/*"],
+      "@use-cases/*": ["./src/application/use-cases/*"]
     }
   }
 }

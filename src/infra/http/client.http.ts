@@ -1,9 +1,9 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
-import { AppError } from '@utils/AppError.util';
+import { ValidationError } from '../../domain/errors/DomainError';
 import {
   storageAuthTokenGet,
   storageAuthTokenSave,
-} from '@infra/storage/auth-token.storage';
+} from '../storage/auth-token.storage';
 
 type SignOut = () => void;
 
@@ -29,6 +29,7 @@ client.registerInterceptTokenManager = (signOut) => {
     async (requestError) => {
       if (requestError?.response?.status === 401) {
         const { refresh_token, token } = await storageAuthTokenGet();
+
         if (token) {
           if (
             requestError.response.data?.message === 'token.expired' ||
@@ -50,7 +51,7 @@ client.registerInterceptTokenManager = (signOut) => {
                     };
                     resolve(client(originalRequestConfig));
                   },
-                  onFailure: (error: AppError) => {
+                  onFailure: (error: AxiosError) => {
                     reject(error);
                   },
                 });
@@ -59,46 +60,52 @@ client.registerInterceptTokenManager = (signOut) => {
 
             isRefreshing = true;
 
-            return new Promise(async (resolve, reject) => {
-              try {
-                const { data } = await client.post('/sessions/refresh-token', {
-                  refresh_token,
-                });
-                await storageAuthTokenSave({
-                  token: data.token,
-                  refresh_token: data.refresh_token,
-                });
-
-                if (originalRequestConfig.data) {
-                  originalRequestConfig.data = JSON.parse(
-                    originalRequestConfig.data
+            return new Promise((resolve, reject) => {
+              const refreshToken = async () => {
+                try {
+                  const { data } = await client.post(
+                    '/sessions/refresh-token',
+                    {
+                      refresh_token,
+                    }
                   );
+                  await storageAuthTokenSave({
+                    token: data.token,
+                    refresh_token: data.refresh_token,
+                  });
+
+                  if (originalRequestConfig.data) {
+                    originalRequestConfig.data = JSON.parse(
+                      originalRequestConfig.data
+                    );
+                  }
+
+                  originalRequestConfig.headers = {
+                    Authorization: `Bearer ${data.token}`,
+                  };
+                  client.defaults.headers.common[
+                    'Authorization'
+                  ] = `Bearer ${data.token}`;
+
+                  failedQueue.forEach((request) => {
+                    request.onSuccess(data.token);
+                  });
+
+                  resolve(client(originalRequestConfig));
+                } catch (error: unknown) {
+                  failedQueue.forEach((request) => {
+                    request.onFailure(error as AxiosError);
+                  });
+
+                  signOut();
+                  reject(error);
+                } finally {
+                  isRefreshing = false;
+                  failedQueue = [];
                 }
+              };
 
-                originalRequestConfig.headers = {
-                  Authorization: `Bearer ${data.token}`,
-                };
-                client.defaults.headers.common[
-                  'Authorization'
-                ] = `Bearer ${data.token}`;
-
-                failedQueue.forEach((request) => {
-                  request.onSuccess(data.token);
-                });
-
-                resolve(client(originalRequestConfig));
-              } catch (error: any) {
-                console.log('[cliente ->line 91] error =>', error);
-                failedQueue.forEach((request) => {
-                  request.onFailure(error);
-                });
-
-                signOut();
-                reject(error);
-              } finally {
-                isRefreshing = false;
-                failedQueue = [];
-              }
+              refreshToken();
             });
           }
 
@@ -107,7 +114,9 @@ client.registerInterceptTokenManager = (signOut) => {
       }
 
       if (requestError.response && requestError.response.data) {
-        return Promise.reject(new AppError(requestError.response.data.message));
+        return Promise.reject(
+          new ValidationError(requestError.response.data.message)
+        );
       } else {
         return Promise.reject(requestError);
       }
