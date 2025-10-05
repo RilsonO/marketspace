@@ -1,8 +1,12 @@
-import { SignInRequestDTO, SignInResponseDTO } from '@dtos/sign-in.dtos';
+import {
+  SignInRequestDTO,
+  SignInResponseDTO,
+} from '../../../application/dtos/auth/sign-in.dtos';
 import { client } from '../client.http';
-import { UpdateProfileResponseDTO } from '@dtos/update-profile.dtos';
-import { UserProductResponseDTO } from '@dtos/product.dtos';
-import { SignUpRequestDTO } from '@dtos/sign-up.dtos';
+import { UpdateProfileResponseDTO } from '../../../application/dtos/user/update-profile.dtos';
+import { UserProductResponseDTO } from '../../../application/dtos/products/product.dtos';
+import { SignUpRequestDTO } from '../../../application/dtos/auth/sign-up.dtos';
+import { PhotoMap } from '../../mappers/photo.map';
 
 async function signUp({
   name,
@@ -17,8 +21,7 @@ async function signUp({
   formData.append('tel', phone);
   formData.append('password', password);
   if (photo.uri) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    formData.append('avatar', photo as any);
+    formData.append('avatar', PhotoMap.toFormDataEntry(photo));
   }
   await client.post<SignInResponseDTO>('/users', formData, {
     headers: {

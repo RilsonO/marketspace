@@ -1,0 +1,1484 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home view should render correctly with search value 1`] = `
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
+  style={
+    [
+      {
+        "flex": 1,
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    dataSet={{}}
+    style={
+      {
+        "flex": 1,
+        "paddingLeft": 24,
+        "paddingRight": 24,
+      }
+    }
+  >
+    <View
+      dataSet={{}}
+      style={
+        {
+          "flexDirection": "row",
+          "marginTop": 8,
+          "width": "full",
+        }
+      }
+    >
+      <View
+        dataSet={{}}
+        style={
+          {
+            "backgroundColor": "#9F9BA1",
+            "borderRadius": 9999,
+            "height": 12,
+            "width": 12,
+          }
+        }
+        testID="user-photo-skeleton"
+      >
+        <View
+          collapsable={false}
+          style={
+            {
+              "backgroundColor": "#5F5B62",
+              "height": "100%",
+              "opacity": 0.996375,
+              "width": "100%",
+            }
+          }
+        />
+      </View>
+      <View
+        dataSet={{}}
+        style={{}}
+      />
+      <View
+        dataSet={{}}
+        style={
+          {
+            "flex": 1,
+            "justifyContent": "center",
+            "paddingLeft": 8,
+            "paddingRight": 8,
+          }
+        }
+      >
+        <Text
+          dataSet={{}}
+          style={
+            {
+              "backgroundColor": undefined,
+              "color": "#1A181B",
+              "fontFamily": "Karla_400Regular",
+              "fontSize": 16,
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "textDecorationLine": undefined,
+            }
+          }
+        >
+          Boas vindas,
+        </Text>
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <Text
+          dataSet={{}}
+          style={
+            {
+              "backgroundColor": undefined,
+              "color": "#1A181B",
+              "fontFamily": "Karla_700Bold",
+              "fontSize": 16,
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "textDecorationLine": undefined,
+            }
+          }
+        />
+      </View>
+      <View
+        dataSet={{}}
+        style={{}}
+      />
+      <View
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        dataSet={{}}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "backgroundColor": "#1A181B",
+            "borderRadius": 6,
+            "flex": 1,
+            "height": 45,
+            "width": "full",
+          }
+        }
+      >
+        <View
+          dataSet={{}}
+          style={
+            {
+              "flexDirection": "row",
+            }
+          }
+          test={true}
+        >
+          Plus
+          <View
+            dataSet={{}}
+            style={{}}
+          />
+          <View
+            dataSet={{}}
+            style={{}}
+          >
+            <Text
+              dataSet={{}}
+              style={
+                {
+                  "backgroundColor": undefined,
+                  "color": "#FFFFFF",
+                  "fontFamily": "Karla_700Bold",
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Criar anúncio
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      dataSet={{}}
+      style={{}}
+    />
+    <Text
+      dataSet={{}}
+      style={
+        {
+          "backgroundColor": undefined,
+          "color": "#5F5B62",
+          "fontFamily": "Karla_400Regular",
+          "fontSize": 14,
+          "fontStyle": "normal",
+          "fontWeight": "400",
+          "marginBottom": 8,
+          "marginTop": 24,
+          "textDecorationLine": undefined,
+        }
+      }
+    >
+      Seus produtos anunciados para venda
+    </Text>
+    <View
+      dataSet={{}}
+      style={{}}
+    />
+    <View
+      dataSet={{}}
+      style={
+        {
+          "backgroundColor": "#9F9BA1",
+          "borderRadius": 6,
+          "height": 16,
+          "width": "full",
+        }
+      }
+    >
+      <View
+        collapsable={false}
+        style={
+          {
+            "backgroundColor": "#5F5B62",
+            "height": "100%",
+            "opacity": 0.996375,
+            "width": "100%",
+          }
+        }
+      />
+    </View>
+    <View
+      dataSet={{}}
+      style={{}}
+    />
+    <Text
+      dataSet={{}}
+      style={
+        {
+          "backgroundColor": undefined,
+          "color": "#5F5B62",
+          "fontFamily": "Karla_400Regular",
+          "fontSize": 14,
+          "fontStyle": "normal",
+          "fontWeight": "400",
+          "marginBottom": 8,
+          "marginTop": 24,
+          "textDecorationLine": undefined,
+        }
+      }
+    >
+      Compre produtos variados
+    </Text>
+    <View
+      dataSet={{}}
+      style={{}}
+    />
+    <View
+      dataSet={{}}
+      style={
+        {
+          "marginBottom": 16,
+        }
+      }
+    >
+      <View
+        dataSet={{}}
+        isFocused={false}
+        style={
+          {
+            "backgroundColor": "#F7F7F8",
+            "borderWidth": 0,
+            "height": 45,
+          }
+        }
+      >
+        <TextInput
+          accessibilityDescribedBy="field-11-feedback"
+          accessible={true}
+          autoComplete="off"
+          autoCorrect={false}
+          dataSet={{}}
+          disabled={false}
+          editable={true}
+          isRequired={false}
+          nativeID="field-11-input"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          onFocus={[Function]}
+          onKeyPress={[Function]}
+          onSubmitEditing={[Function]}
+          placeholder="Buscar anúncio"
+          placeholderTextColor="#9F9BA1"
+          readOnly={false}
+          required={false}
+          returnKeyType="search"
+          secureTextEntry={false}
+          style={
+            {
+              "color": "#1A181B",
+              "fontFamily": "body",
+              "fontSize": 16,
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "paddingLeft": 16,
+              "paddingRight": 16,
+              "width": undefined,
+            }
+          }
+          value=""
+        />
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <View
+          dataSet={{}}
+          style={
+            {
+              "flexDirection": "row",
+              "marginRight": 16,
+              "width": 16,
+            }
+          }
+        >
+          <View
+            dataSet={{}}
+            style={
+              {
+                "flexDirection": "row",
+              }
+            }
+          >
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              dataSet={{}}
+              focusable={true}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "flex": 1,
+                }
+              }
+            >
+              MagnifyingGlass
+            </View>
+            <View
+              aria-orientation="vertical"
+              dataSet={{}}
+              style={
+                {
+                  "backgroundColor": "#9F9BA1",
+                }
+              }
+            />
+            <View
+              accessibilityState={
+                {
+                  "busy": undefined,
+                  "checked": undefined,
+                  "disabled": undefined,
+                  "expanded": undefined,
+                  "selected": undefined,
+                }
+              }
+              accessibilityValue={
+                {
+                  "max": undefined,
+                  "min": undefined,
+                  "now": undefined,
+                  "text": undefined,
+                }
+              }
+              accessible={true}
+              collapsable={false}
+              dataSet={{}}
+              focusable={true}
+              onBlur={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                {
+                  "alignItems": "flex-end",
+                  "flex": 1,
+                }
+              }
+            >
+              Faders
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+    <View
+      dataSet={{}}
+      style={{}}
+    />
+    <RCTScrollView
+      ListEmptyComponent={
+        <Memo
+          color="gray.500"
+          fontFamily="regular"
+          fontSize="sm"
+          mb="2"
+          mt="6"
+        >
+          Nenhum anúncio encontrado!
+        </Memo>
+      }
+      contentContainerStyle={
+        {
+          "alignItems": "center",
+          "flex": 1,
+          "justifyContent": "center",
+        }
+      }
+      data={[]}
+      dataSet={{}}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      keyExtractor={[Function]}
+      onContentSizeChange={[Function]}
+      onLayout={[Function]}
+      onMomentumScrollBegin={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={false}
+      renderItem={[Function]}
+      scrollEventThrottle={0.0001}
+      showsVerticalScrollIndicator={false}
+      stickyHeaderIndices={[]}
+      style={{}}
+      viewabilityConfigCallbackPairs={[]}
+    >
+      <View>
+        <Text
+          dataSet={{}}
+          onLayout={[Function]}
+          style={
+            {
+              "backgroundColor": undefined,
+              "color": "#5F5B62",
+              "fontFamily": "Karla_400Regular",
+              "fontSize": 14,
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "marginBottom": 8,
+              "marginTop": 24,
+              "textDecorationLine": undefined,
+            }
+          }
+        >
+          Nenhum anúncio encontrado!
+        </Text>
+      </View>
+    </RCTScrollView>
+    <View
+      dataSet={{}}
+      style={{}}
+    />
+    <View
+      HeaderComponent={
+        <Memo
+          alignItems="center"
+          justifyContent="space-between"
+          mt="10"
+        >
+          <Memo
+            color="gray.700"
+            fontFamily="bold"
+            fontSize="lg+"
+          >
+            Filtrar anúncios
+          </Memo>
+          <Memo
+            onPress={[Function]}
+            px="4"
+          >
+            <X
+              color="#9F9BA1"
+              size={25}
+            />
+          </Memo>
+        </Memo>
+      }
+      avoidKeyboardLikeIOS={true}
+      handlePosition="inside"
+      modalHeight={1200.6}
+      modalStyle={
+        {
+          "backgroundColor": "#EDECEE",
+          "paddingHorizontal": 24,
+        }
+      }
+      scrollViewProps={
+        {
+          "showsVerticalScrollIndicator": false,
+        }
+      }
+      snapPoint={1200.6}
+      testID="modalize"
+    >
+      <View
+        dataSet={{}}
+        style={
+          {
+            "flex": 1,
+          }
+        }
+      >
+        <Text
+          dataSet={{}}
+          style={
+            {
+              "backgroundColor": undefined,
+              "color": "#3E3A40",
+              "fontFamily": "Karla_700Bold",
+              "fontSize": 14,
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "marginBottom": 12,
+              "marginTop": 24,
+              "textDecorationLine": undefined,
+            }
+          }
+        >
+          Condição
+        </Text>
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <View
+          dataSet={{}}
+          style={
+            {
+              "flexDirection": "row",
+            }
+          }
+        >
+          <View
+            accessibilityRole="button"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            dataSet={{}}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "backgroundColor": "#D9D8DA",
+                "borderRadius": 9999,
+                "marginLeft": 4,
+                "marginRight": 4,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+              }
+            }
+          >
+            <View
+              dataSet={{}}
+              style={
+                {
+                  "flexDirection": "row",
+                }
+              }
+              test={true}
+            >
+              <View
+                dataSet={{}}
+                style={{}}
+              >
+                <View
+                  dataSet={{}}
+                  style={
+                    {
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <Text
+                    dataSet={{}}
+                    style={
+                      {
+                        "backgroundColor": undefined,
+                        "color": "#5F5B62",
+                        "fontFamily": "Karla_700Bold",
+                        "fontSize": 12,
+                        "fontStyle": "normal",
+                        "fontWeight": "400",
+                        "textDecorationLine": undefined,
+                      }
+                    }
+                  >
+                    NOVO
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+          <View
+            dataSet={{}}
+            style={{}}
+          />
+          <View
+            accessibilityRole="button"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            dataSet={{}}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "backgroundColor": "#D9D8DA",
+                "borderRadius": 9999,
+                "marginLeft": 4,
+                "marginRight": 4,
+                "paddingLeft": 20,
+                "paddingRight": 20,
+              }
+            }
+          >
+            <View
+              dataSet={{}}
+              style={
+                {
+                  "flexDirection": "row",
+                }
+              }
+              test={true}
+            >
+              <View
+                dataSet={{}}
+                style={{}}
+              >
+                <View
+                  dataSet={{}}
+                  style={
+                    {
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <Text
+                    dataSet={{}}
+                    style={
+                      {
+                        "backgroundColor": undefined,
+                        "color": "#5F5B62",
+                        "fontFamily": "Karla_700Bold",
+                        "fontSize": 12,
+                        "fontStyle": "normal",
+                        "fontWeight": "400",
+                        "textDecorationLine": undefined,
+                      }
+                    }
+                  >
+                    USADO
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <Text
+          dataSet={{}}
+          style={
+            {
+              "backgroundColor": undefined,
+              "color": "#3E3A40",
+              "fontFamily": "Karla_700Bold",
+              "fontSize": 14,
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "marginBottom": 12,
+              "marginTop": 24,
+              "textDecorationLine": undefined,
+            }
+          }
+        >
+          Aceita troca?
+        </Text>
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <RCTSwitch
+          accessibilityRole="switch"
+          dataSet={{}}
+          onChange={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          onTintColor="#647AC7"
+          style={
+            [
+              {
+                "height": 31,
+                "width": 51,
+              },
+              [
+                {
+                  "alignSelf": "flex-start",
+                  "height": "sm",
+                  "width": "sm",
+                },
+                {
+                  "backgroundColor": "#D9D8DA",
+                  "borderRadius": 16,
+                },
+              ],
+            ]
+          }
+          tintColor="#D9D8DA"
+          value={false}
+        />
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <Text
+          dataSet={{}}
+          style={
+            {
+              "backgroundColor": undefined,
+              "color": "#3E3A40",
+              "fontFamily": "Karla_700Bold",
+              "fontSize": 14,
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "marginBottom": 12,
+              "marginTop": 24,
+              "textDecorationLine": undefined,
+            }
+          }
+        >
+          Meios de pagamento aceitos
+        </Text>
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <View
+          accessibilityRole="checkbox"
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": false,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          dataSet={{}}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={{}}
+        >
+          <View
+            dataSet={{}}
+            style={
+              {
+                "marginTop": 8,
+              }
+            }
+          >
+            <View
+              dataSet={{}}
+              style={{}}
+            >
+              <View
+                dataSet={{}}
+                style={{}}
+              />
+              <View
+                checked={false}
+                dataSet={{}}
+                disabled={false}
+                isChecked={false}
+                onChange={[Function]}
+                style={{}}
+                value="boleto"
+              >
+                <View
+                  dataSet={{}}
+                  style={
+                    {
+                      "color": "#FFFFFF",
+                    }
+                  }
+                />
+              </View>
+            </View>
+            <View
+              dataSet={{}}
+              style={{}}
+            />
+            <Text
+              dataSet={{}}
+              style={
+                {
+                  "backgroundColor": undefined,
+                  "color": "#3E3A40",
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Boleto
+            </Text>
+          </View>
+        </View>
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <View
+          accessibilityRole="checkbox"
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": false,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          dataSet={{}}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={{}}
+        >
+          <View
+            dataSet={{}}
+            style={
+              {
+                "marginTop": 8,
+              }
+            }
+          >
+            <View
+              dataSet={{}}
+              style={{}}
+            >
+              <View
+                dataSet={{}}
+                style={{}}
+              />
+              <View
+                checked={false}
+                dataSet={{}}
+                disabled={false}
+                isChecked={false}
+                onChange={[Function]}
+                style={{}}
+                value="pix"
+              >
+                <View
+                  dataSet={{}}
+                  style={
+                    {
+                      "color": "#FFFFFF",
+                    }
+                  }
+                />
+              </View>
+            </View>
+            <View
+              dataSet={{}}
+              style={{}}
+            />
+            <Text
+              dataSet={{}}
+              style={
+                {
+                  "backgroundColor": undefined,
+                  "color": "#3E3A40",
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Pix
+            </Text>
+          </View>
+        </View>
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <View
+          accessibilityRole="checkbox"
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": false,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          dataSet={{}}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={{}}
+        >
+          <View
+            dataSet={{}}
+            style={
+              {
+                "marginTop": 8,
+              }
+            }
+          >
+            <View
+              dataSet={{}}
+              style={{}}
+            >
+              <View
+                dataSet={{}}
+                style={{}}
+              />
+              <View
+                checked={false}
+                dataSet={{}}
+                disabled={false}
+                isChecked={false}
+                onChange={[Function]}
+                style={{}}
+                value="cash"
+              >
+                <View
+                  dataSet={{}}
+                  style={
+                    {
+                      "color": "#FFFFFF",
+                    }
+                  }
+                />
+              </View>
+            </View>
+            <View
+              dataSet={{}}
+              style={{}}
+            />
+            <Text
+              dataSet={{}}
+              style={
+                {
+                  "backgroundColor": undefined,
+                  "color": "#3E3A40",
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Dinheiro
+            </Text>
+          </View>
+        </View>
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <View
+          accessibilityRole="checkbox"
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": false,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          dataSet={{}}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={{}}
+        >
+          <View
+            dataSet={{}}
+            style={
+              {
+                "marginTop": 8,
+              }
+            }
+          >
+            <View
+              dataSet={{}}
+              style={{}}
+            >
+              <View
+                dataSet={{}}
+                style={{}}
+              />
+              <View
+                checked={false}
+                dataSet={{}}
+                disabled={false}
+                isChecked={false}
+                onChange={[Function]}
+                style={{}}
+                value="card"
+              >
+                <View
+                  dataSet={{}}
+                  style={
+                    {
+                      "color": "#FFFFFF",
+                    }
+                  }
+                />
+              </View>
+            </View>
+            <View
+              dataSet={{}}
+              style={{}}
+            />
+            <Text
+              dataSet={{}}
+              style={
+                {
+                  "backgroundColor": undefined,
+                  "color": "#3E3A40",
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Cartão de Crédito
+            </Text>
+          </View>
+        </View>
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <View
+          accessibilityRole="checkbox"
+          accessibilityState={
+            {
+              "busy": undefined,
+              "checked": false,
+              "disabled": undefined,
+              "expanded": undefined,
+              "selected": undefined,
+            }
+          }
+          accessibilityValue={
+            {
+              "max": undefined,
+              "min": undefined,
+              "now": undefined,
+              "text": undefined,
+            }
+          }
+          accessible={true}
+          collapsable={false}
+          dataSet={{}}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={{}}
+        >
+          <View
+            dataSet={{}}
+            style={
+              {
+                "marginTop": 8,
+              }
+            }
+          >
+            <View
+              dataSet={{}}
+              style={{}}
+            >
+              <View
+                dataSet={{}}
+                style={{}}
+              />
+              <View
+                checked={false}
+                dataSet={{}}
+                disabled={false}
+                isChecked={false}
+                onChange={[Function]}
+                style={{}}
+                value="deposit"
+              >
+                <View
+                  dataSet={{}}
+                  style={
+                    {
+                      "color": "#FFFFFF",
+                    }
+                  }
+                />
+              </View>
+            </View>
+            <View
+              dataSet={{}}
+              style={{}}
+            />
+            <Text
+              dataSet={{}}
+              style={
+                {
+                  "backgroundColor": undefined,
+                  "color": "#3E3A40",
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Deposito Bancário
+            </Text>
+          </View>
+        </View>
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <View
+          dataSet={{}}
+          style={
+            {
+              "flexDirection": "row",
+              "marginBottom": 40,
+              "marginTop": 40,
+            }
+          }
+        >
+          <View
+            accessibilityRole="button"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            dataSet={{}}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "backgroundColor": "#D9D8DA",
+                "borderRadius": 6,
+                "flex": 1,
+                "height": 45,
+                "marginRight": 8,
+                "width": "full",
+              }
+            }
+          >
+            <View
+              dataSet={{}}
+              style={
+                {
+                  "flexDirection": "row",
+                }
+              }
+              test={true}
+            >
+              <View
+                dataSet={{}}
+                style={{}}
+              >
+                <Text
+                  dataSet={{}}
+                  style={
+                    {
+                      "backgroundColor": undefined,
+                      "color": "#3E3A40",
+                      "fontFamily": "Karla_700Bold",
+                      "fontSize": 14,
+                      "fontStyle": "normal",
+                      "fontWeight": "400",
+                      "textDecorationLine": undefined,
+                    }
+                  }
+                >
+                  Resetar filtros
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View
+            dataSet={{}}
+            style={{}}
+          />
+          <View
+            accessibilityRole="button"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            dataSet={{}}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "backgroundColor": "#1A181B",
+                "borderRadius": 6,
+                "flex": 1,
+                "height": 45,
+                "marginLeft": 8,
+                "width": "full",
+              }
+            }
+          >
+            <View
+              dataSet={{}}
+              style={
+                {
+                  "flexDirection": "row",
+                }
+              }
+              test={true}
+            >
+              <View
+                dataSet={{}}
+                style={{}}
+              >
+                <Text
+                  dataSet={{}}
+                  style={
+                    {
+                      "backgroundColor": undefined,
+                      "color": "#FFFFFF",
+                      "fontFamily": "Karla_700Bold",
+                      "fontSize": 14,
+                      "fontStyle": "normal",
+                      "fontWeight": "400",
+                      "textDecorationLine": undefined,
+                    }
+                  }
+                >
+                  Aplicar filtros
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</RNCSafeAreaProvider>
+`;

@@ -2,47 +2,47 @@ import { client } from '../client.http';
 import {
   ProductCreateRequestDTO,
   ProductCreateResponseDTO,
-  ProductDTO,
   ProductDeleteImagesRequestDTO,
-  ProductDetailDTO,
+  ProductDTO,
   ProductInsertImagesRequestDTO,
   ProductInsertImagesResponseDTO,
   ProductRequestDTO,
+  ProductsRequestDTO,
   ProductToggleDisableRequestDTO,
   ProductUpdateRequestDTO,
-  ProductsRequestDTO,
-} from '@dtos/product.dtos';
+} from '../../../application/dtos/products/product.dtos';
+import { PhotoMap } from '../../mappers/photo.map';
 
-async function fetchProducts({ filter }: ProductsRequestDTO) {
+export async function fetchProducts({ filter }: ProductsRequestDTO) {
   const { data } = await client.get<ProductDTO[]>(`/products${filter}`);
   return data;
 }
 
-async function fetchProductById({ id }: ProductRequestDTO) {
-  const { data } = await client.get<ProductDetailDTO>(`/products/${id}`);
+export async function fetchUserProducts() {
+  const { data } = await client.get<ProductDTO[]>(`/users/products`);
   return data;
 }
 
-async function productDeleteById({ id }: ProductRequestDTO) {
+export async function productDeleteById({ id }: ProductRequestDTO) {
   return await client.delete<Promise<void>>(`/products/${id}`);
 }
 
-async function productToggleDisableById({
+export async function productCreate(body: ProductCreateRequestDTO) {
+  return await client.post<ProductCreateResponseDTO>(`/products`, body);
+}
+
+export async function productUpdate({ id, ...body }: ProductUpdateRequestDTO) {
+  return await client.put(`/products/${id}`, { ...body });
+}
+
+export async function productToggleDisableById({
   id,
   is_active,
 }: ProductToggleDisableRequestDTO) {
   return await client.patch<Promise<void>>(`/products/${id}`, { is_active });
 }
 
-async function productCreate(body: ProductCreateRequestDTO) {
-  return await client.post<ProductCreateResponseDTO>(`/products`, body);
-}
-
-async function productUpdate({ id, ...body }: ProductUpdateRequestDTO) {
-  return await client.put(`/products/${id}`, { ...body });
-}
-
-async function productInsertImages({
+export async function productInsertImages({
   product_id,
   product_images,
 }: ProductInsertImagesRequestDTO) {
@@ -50,8 +50,8 @@ async function productInsertImages({
   formData.append('product_id', product_id);
   product_images.map((photo) => {
     if (photo.uri) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      formData.append('images', photo as any);
+      const formDataEntry = PhotoMap.toFormDataEntry(photo);
+      formData.append('images', formDataEntry);
     }
   });
 
@@ -66,20 +66,10 @@ async function productInsertImages({
   );
 }
 
-async function productDeleteImagesById({
+export async function productDeleteImagesById({
   productImagesIds,
 }: ProductDeleteImagesRequestDTO) {
   return await client.delete(`/products/images`, {
     data: { productImagesIds },
   });
 }
-export {
-  fetchProducts,
-  fetchProductById,
-  productToggleDisableById,
-  productDeleteById,
-  productCreate,
-  productInsertImages,
-  productDeleteImagesById,
-  productUpdate,
-};
